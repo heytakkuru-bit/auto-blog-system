@@ -1,0 +1,12 @@
+# 認証情報
+.env
+
+# 実行時に自動生成されるファイル
+used_keywords.txt
+published_articles.json
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
