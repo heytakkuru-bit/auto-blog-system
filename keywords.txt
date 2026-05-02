@@ -1,0 +1,107 @@
+# フォーマット: [category: カテゴリ名] の後にキーワードを列挙
+
+[category: 生成AI・プロンプト系]
+ChatGPT プロンプト テンプレ
+ChatGPT 記事作成 やり方
+ChatGPT 要約 プロンプト 例文
+Claude 3 使い方 初心者
+Claude プロンプト テンプレ
+Gemini 使い方 仕事
+AI 画像生成 プロンプト テンプレ
+Midjourney 呪文 テンプレ
+Stable Diffusion 設定 やり方
+AI 美女 生成 やり方
+ChatGPT 翻訳 プロンプト
+AI 占い プロンプト テンプレ
+ChatGPT 議事録 作成 やり方
+AI スライド作成 やり方
+Gamma 使い方 テンプレ
+AI 動画生成 やり方
+HeyGen 使い方 初心者
+Sora AI いつから 使い方
+AI 音楽生成 やり方
+Suno AI 歌詞 テンプレ
+AI ロゴ作成 やり方
+ChatGPT Excelマクロ 作成 やり方
+AI Python コード 生成 テンプレ
+AI 論文読み方 やり方
+ChatGPT 読書感想文 テンプレ
+AI 履歴書 作成 やり方
+AI 職務経歴書 テンプレ
+ChatGPT 自己分析 やり方
+AI 英語学習 やり方
+ChatGPT 英会話 プロンプト
+AI プレゼン資料 構成 テンプレ
+ChatGPT キャラ設定 テンプレ
+AI 小説 書き方 テンプレ
+AI 脚本 作成 やり方
+AI 要約 ツール おすすめ
+ChatGPT プラグイン 使い方
+カスタムGPT 作り方 テンプレ
+GPTs 収益化 やり方
+AI 副業 始め方 初心者
+AI プロンプト 販売 やり方
+
+[category: 業務効率化・ツール系]
+Notion 使い方 テンプレ
+Notion タスク管理 テンプレ
+Notion 家計簿 テンプレ
+Notion 読書記録 テンプレ
+Make 使い方 自動化
+Zapier 連携 やり方
+n8n 使い方 初心者
+Google Apps Script 自動送信 テンプレ
+GAS スクレイピング やり方
+Python 自動化 例文
+Excel 関数 組み合わせ テンプレ
+スプレッドシート 共有 やり方
+Slack ワークフロー 作り方
+Discord Bot 作り方 初心者
+Canva デザイン テンプレ
+Figma 使い方 練習
+GitHub 使い方 初心者
+VS Code 設定 やり方
+WSL2 インストール 手順
+Docker 使い方 わかりやすく
+API 連携 やり方 初心者
+OpenAI API 取得 方法
+DeepL API 使い方
+LINE Bot 作り方 テンプレ
+フォーム 自動返信 やり方
+マインドマップ AI 書き方
+Miro 使い方 テンプレ
+Trello 使い方 ボード
+Asana タスク管理 やり方
+リモートワーク ツール 比較
+
+[category: SNS・マーケティング系]
+X(Twitter) 自動投稿 やり方
+インスタ 投稿 テンプレ
+インスタ リール 作り方 AI
+Threads 伸ばし方 やり方
+YouTube 台本 テンプレ
+YouTube ショート 作り方 AI
+TikTok バズる 書き方 テンプレ
+note 記事 書き方 テンプレ
+ブログ 構成案 テンプレ
+SEO キーワード 選定 やり方
+メルマガ 文面 テンプレ
+公式LINE ステップ配信 やり方
+広告コピー 例文 テンプレ
+セールスライティング やり方
+LP 構成 テンプレ
+アイキャッチ デザイン テンプレ
+プロフィール 自己紹介 テンプレ
+リンクツリー 作り方 やり方
+SNS 運用代行 始め方
+コンテンツ販売 やり方 初心者
+商品LP 作り方 テンプレ
+Webライター 提案文 テンプレ
+クラウドワークス 受注 やり方
+ココナラ 出品 やり方
+Gumroad 使い方 日本語
+Stripe 決済 導入 やり方
+ネットショップ 開設 手順
+アフィリエイト 始め方 初心者
+海外ツール 日本語化 やり方
+AI ツール 比較 記事 テンプレ
