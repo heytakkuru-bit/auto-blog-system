@@ -25,8 +25,13 @@ from internal_link_manager import (
     save_article,
 )
 import keyword_manager
+from article_generator import HOBBY_CATEGORY
 
 load_dotenv(Path(__file__).parent / ".env")
+
+HOBBY_INTERVAL = 6   # この投稿数ごとに1回番外編を混ぜる
+RETRY_COUNT = 3      # 失敗時のリトライ回数
+RETRY_WAIT = 600     # リトライ間隔（秒）= 10分
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,6 +44,25 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _pick_next_entry(pending):
+    """投稿済み件数に応じて次のキーワードを選ぶ。6件に1件は番外編。"""
+    from internal_link_manager import load_all
+    total_posted = len(load_all())
+    use_hobby = (total_posted + 1) % HOBBY_INTERVAL == 0
+
+    hobby = [e for e in pending if e.category == HOBBY_CATEGORY]
+    regular = [e for e in pending if e.category != HOBBY_CATEGORY]
+
+    if use_hobby and hobby:
+        logger.info(f"[HOBBY] {total_posted + 1}件目 → 番外編を選択")
+        return hobby[0]
+    if use_hobby and not hobby:
+        logger.info("[HOBBY] 番外編キーワード残なし → 通常記事にフォールバック")
+    if regular:
+        return regular[0]
+    return pending[0]  # 通常キーワードも尽きた場合は先頭
+
+
 def post_one_article() -> bool:
     pending = keyword_manager.load_pending()
     if not pending:
@@ -49,7 +73,7 @@ def post_one_article() -> bool:
             logger.error("keywords.txt is empty.")
             return False
 
-    entry = pending[0]
+    entry = _pick_next_entry(pending)
     keyword = entry.keyword
     category = entry.category
 
@@ -112,10 +136,22 @@ def show_status() -> None:
     print()
 
 
+def post_with_retry() -> bool:
+    """失敗時に最大RETRY_COUNT回、RETRY_WAIT秒間隔でリトライする。"""
+    for attempt in range(1, RETRY_COUNT + 1):
+        if post_one_article():
+            return True
+        if attempt < RETRY_COUNT:
+            logger.warning(f"Retry {attempt}/{RETRY_COUNT - 1}: waiting {RETRY_WAIT // 60} min...")
+            time.sleep(RETRY_WAIT)
+    logger.error("All retry attempts failed.")
+    return False
+
+
 def setup_schedule() -> None:
     post_times = os.getenv("POST_TIMES", "08:00,13:00,20:00").split(",")
     for t in [s.strip() for s in post_times]:
-        schedule.every().day.at(t).do(post_one_article)
+        schedule.every().day.at(t).do(post_with_retry)
         logger.info(f"Scheduled: {t}")
 
 
