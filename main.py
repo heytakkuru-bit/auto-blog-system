@@ -161,7 +161,8 @@ def main() -> None:
     if "run-now" in args:
         run_daily_posts()
     elif "post-one" in args:
-        post_one_article()
+        success = post_one_article()
+        sys.exit(0 if success else 1)
     elif "verify" in args:
         try:
             ok = WordPressPoster().verify_connection()
