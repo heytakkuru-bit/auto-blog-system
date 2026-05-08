@@ -36,7 +36,7 @@ class ProductGenerator:
 
         prompt = self._build_prompt(article_title, article_content, keyword)
         response = self.client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash-lite",
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.8, max_output_tokens=4096),
         )

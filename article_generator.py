@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 MODELS = [
     os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite"),
     "gemini-2.5-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-2.0-flash",
+    "gemini-2.5-pro",
 ]
 
 HOBBY_CATEGORY = "番外編・趣味ログ"
