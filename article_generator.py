@@ -12,10 +12,10 @@ MODEL_TIMEOUT = 45  # 1モデルあたりの最大待ち時間（秒）
 logger = logging.getLogger(__name__)
 
 MODELS = [
-    os.getenv("GEMINI_MODEL", "gemini-2.0-flash"),
-    "gemini-2.0-flash-lite",
-    "gemini-2.5-flash-lite",
+    os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite"),
     "gemini-2.5-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.0-flash",
 ]
 
 HOBBY_CATEGORY = "番外編・趣味ログ"
@@ -60,7 +60,7 @@ class ArticleGenerator:
                         continue
                 return self._parse_response(response.text, keyword, category, is_hobby)
             except (ClientError, ServerError) as e:
-                if e.code in (429, 503):
+                if e.code in (404, 429, 503):
                     logger.warning(f"Model {model} unavailable ({e.code}), trying next...")
                     last_error = e
                     time.sleep(2)
