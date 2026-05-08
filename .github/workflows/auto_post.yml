@@ -38,6 +38,8 @@ jobs:
           PRODUCT_PRICE: ${{ secrets.PRODUCT_PRICE }}
           PRODUCT_PASSWORD: ${{ secrets.PRODUCT_PASSWORD }}
           ENABLE_PRODUCT: ${{ secrets.ENABLE_PRODUCT }}
+          STRIPE_PAYMENT_URL: ${{ secrets.STRIPE_PAYMENT_URL }}
+          THANKS_PAGE_URL: ${{ secrets.THANKS_PAGE_URL }}
         run: python main.py post-one
 
       - name: Save state

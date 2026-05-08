@@ -36,6 +36,8 @@ class ProductSeller:
         self.api_base = self._detect_api_base()
         self.price = os.getenv("PRODUCT_PRICE", "300")
         self.password = os.getenv("PRODUCT_PASSWORD", "teqsnap2026")
+        self.stripe_url = os.getenv("STRIPE_PAYMENT_URL", "")
+        self.thanks_url = os.getenv("THANKS_PAGE_URL", "")
 
     def _detect_api_base(self) -> str:
         try:
@@ -113,11 +115,15 @@ class ProductSeller:
             f"<h3>購入・ダウンロード方法</h3>"
             f'<div style="background:#f0f4ff;border-left:4px solid #3b5bdb;padding:16px;margin:16px 0;border-radius:4px;">'
             f"<p><strong>このページはパスワード保護されています。</strong><br>"
-            f"パスワードの取得方法：<a href='/contact'>お問い合わせフォーム</a>より"
-            f"「{article_title}のプロンプト集購入希望」とお送りください。<br>"
-            f"確認後、{self.price}円のお支払い方法をご案内します。"
-            f"お支払い確認後にパスワードをお送りします。</p>"
+            f"① 下の「Stripeで購入する」ボタンからお支払い（{self.price}円）<br>"
+            f"② 決済完了後、パスワードが表示されます<br>"
+            f"③ このページに戻ってパスワードを入力するとダウンロードできます</p>"
             f"</div>"
+            f'<p style="text-align:center;">'
+            f'<a href="{self.stripe_url}" target="_blank" rel="noopener" '
+            f'style="display:inline-block;background:#635bff;color:white;'
+            f'padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:16px;">'
+            f"Stripeで購入する（{self.price}円）</a></p>"
             f"<h3>ダウンロード</h3>"
             f'<p><a href="{download_url}" download '
             f'style="display:inline-block;background:#3b5bdb;color:white;'
@@ -128,6 +134,7 @@ class ProductSeller:
 
     def build_cta_html(self, product_title: str, sales_page_url: str) -> str:
         """記事末尾に挿入する CTA バナー HTML を返す"""
+        buy_url = self.stripe_url if self.stripe_url else sales_page_url
         return (
             f'<div style="background:linear-gradient(135deg,#3b5bdb,#7048e8);'
             f"color:white;padding:24px;border-radius:12px;margin:32px 0;text-align:center;"
@@ -138,12 +145,12 @@ class ProductSeller:
             f"{product_title}</p>"
             f'<p style="font-size:12px;margin:0 0 16px;opacity:0.8;">'
             f"実戦プロンプト3選 ✅ 2026年動作確認済み ✅ コピペで即使える</p>"
-            f'<a href="{sales_page_url}" '
+            f'<a href="{buy_url}" target="_blank" rel="noopener" '
             f'style="display:inline-block;background:white;color:#3b5bdb;'
             f"padding:11px 28px;border-radius:6px;font-weight:bold;"
             f'text-decoration:none;font-size:15px;">'
-            f"{self.price}円で購入する</a>"
+            f"Stripeで即購入（{self.price}円）</a>"
             f'<p style="margin:10px 0 0;font-size:11px;opacity:0.65;">'
-            f"お問い合わせよりご購入手続きができます</p>"
+            f"クレジットカード決済 / 購入直後にパスワードが届きます</p>"
             f"</div>"
         )
