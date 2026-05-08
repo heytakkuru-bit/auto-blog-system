@@ -16,8 +16,11 @@ from pathlib import Path
 import schedule
 from dotenv import load_dotenv
 
+import re
+
 from article_generator import ArticleGenerator
 from wordpress_poster import WordPressPoster
+from image_generator import ImageGenerator
 from product_generator import ProductGenerator
 from product_seller import ProductSeller
 from internal_link_manager import (
@@ -95,6 +98,61 @@ def _attach_product(article: dict) -> dict:
     return article
 
 
+def _attach_images(article: dict, keyword: str, poster: WordPressPoster) -> dict:
+    """
+    記事内の <!-- IMAGE:type:description --> マーカーを実画像に置換し、
+    最初の画像をアイキャッチとして設定する。
+    失敗しても記事投稿は止めない。
+    """
+    if os.getenv("ENABLE_IMAGES", "true").lower() != "true":
+        return article
+
+    max_images = int(os.getenv("IMAGE_MAX_PER_ARTICLE", "2"))
+    pattern = re.compile(r'<!-- IMAGE:(\w+):([^>]+?) -->')
+    markers = pattern.findall(article["content"])
+    if not markers:
+        return article
+
+    try:
+        gen = ImageGenerator()
+    except Exception as e:
+        logger.warning(f"[IMAGE] ImageGenerator init failed: {e}")
+        return article
+
+    article = dict(article)
+    inserted = 0
+
+    def replace_marker(m: re.Match) -> str:
+        nonlocal inserted
+        if inserted >= max_images:
+            return ""
+        img_type, description = m.group(1), m.group(2).strip()
+        prompt = ImageGenerator.build_prompt(keyword, description)
+        img_bytes = gen.generate(prompt)
+        if not img_bytes:
+            return ""
+        slug = re.sub(r"[^a-z0-9]", "-", keyword.lower())[:30]
+        filename = f"{slug}-{img_type}-{inserted + 1}.png"
+        media_id, media_url = poster.upload_media(img_bytes, filename)
+        if not media_url:
+            return ""
+        inserted += 1
+        if inserted == 1 and not article.get("featured_media_id"):
+            article["featured_media_id"] = media_id
+        alt = description[:60]
+        return (
+            f'<figure style="text-align:center;margin:28px 0;">'
+            f'<img src="{media_url}" alt="{alt}" '
+            f'style="max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.12);">'
+            f'<figcaption style="color:#777;font-size:0.88em;margin-top:8px;">'
+            f'{alt}</figcaption></figure>'
+        )
+
+    article["content"] = pattern.sub(replace_marker, article["content"])
+    logger.info(f"[IMAGE] {inserted} image(s) attached")
+    return article
+
+
 def post_one_article() -> bool:
     pending = keyword_manager.load_pending()
     if not pending:
@@ -122,8 +180,11 @@ def post_one_article() -> bool:
         if os.getenv("ENABLE_PRODUCT", "true").lower() == "true" and category != HOBBY_CATEGORY:
             article = _attach_product(article)
 
-        # WordPress投稿
+        # 画像生成・アップロード
         poster = WordPressPoster()
+        article = _attach_images(article, keyword, poster)
+
+        # WordPress投稿
         result = poster.post(article)
 
         # 投稿済みDBに保存

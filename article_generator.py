@@ -134,6 +134,48 @@ class ArticleGenerator:
 キーワード: {keyword}
 {category_hint}文字数: {self.min_chars}文字以上
 {internal_links_section}
+## ビジュアル要素の要件（必須）
+
+記事内に以下のHTMLコンポーネントを必ず使用すること。
+inline styleをそのままコピーして使い、クラス名は使わないこと。
+
+### カラーコールアウトBOX（最低3種類使用）
+
+ポイントBOX:
+<div style="background:#e8f4fd;border-left:4px solid #2196F3;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;"><strong style="color:#1565C0;">💡 ポイント</strong><br>内容をここに書く</div>
+
+初心者ここで詰むBOX:
+<div style="background:#fff3e0;border-left:4px solid #FF9800;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;"><strong style="color:#E65100;">⚠️ 初心者ここで詰む</strong><br>詰まりやすいポイントをここに書く</div>
+
+感動ポイントBOX:
+<div style="background:#e8f5e9;border-left:4px solid #4CAF50;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;"><strong style="color:#1B5E20;">✅ ここが感動した</strong><br>良かった点をここに書く</div>
+
+期待外れBOX:
+<div style="background:#fce4ec;border-left:4px solid #E91E63;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;"><strong style="color:#880E4F;">😅 ここは期待外れだった</strong><br>残念だった点をここに書く</div>
+
+### ステップカード（手順説明に使用。番号は1,2,3...と変える）
+
+<div style="background:#f8f9fa;border:1px solid #dee2e6;border-radius:12px;padding:20px;margin:12px 0;"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><span style="background:#2196F3;color:white;border-radius:50%;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;flex-shrink:0;">1</span><strong style="font-size:1.05em;">ステップのタイトル</strong></div><p style="margin:0;">ここに説明文を書く</p></div>
+
+### 比較テーブル（他ツールとの比較に必ず使用）
+
+<div style="overflow-x:auto;margin:24px 0;"><table style="width:100%;border-collapse:collapse;font-size:0.95em;"><thead><tr style="background:#1565C0;color:white;"><th style="padding:12px 16px;text-align:left;border:1px solid #1565C0;">項目</th><th style="padding:12px 16px;text-align:center;border:1px solid #1565C0;">ツールA</th><th style="padding:12px 16px;text-align:center;border:1px solid #1565C0;">ツールB</th></tr></thead><tbody><tr style="background:#ffffff;"><td style="padding:10px 16px;border:1px solid #e0e0e0;">料金</td><td style="padding:10px 16px;text-align:center;border:1px solid #e0e0e0;">〇〇円</td><td style="padding:10px 16px;text-align:center;border:1px solid #e0e0e0;">〇〇円</td></tr><tr style="background:#f5f5f5;"><td style="padding:10px 16px;border:1px solid #e0e0e0;">機能</td><td style="padding:10px 16px;text-align:center;border:1px solid #e0e0e0;">内容</td><td style="padding:10px 16px;text-align:center;border:1px solid #e0e0e0;">内容</td></tr></tbody></table></div>
+
+### まとめBOX（記事末に必ず配置）
+
+<div style="background:linear-gradient(135deg,#1565C0,#42A5F5);color:white;padding:24px 28px;border-radius:12px;margin:32px 0;"><h3 style="color:white;margin-top:0;font-size:1.2em;">📝 この記事のまとめ</h3><ul style="margin:0;padding-left:20px;line-height:2.0;"><li>まとめポイント1</li><li>まとめポイント2</li><li>まとめポイント3</li></ul></div>
+
+### 画像プレースホルダー（最低2箇所、多くて3箇所）
+
+導入部の後に必ず1つ配置:
+<!-- IMAGE:intro:英語20単語以内で画像内容を説明 -->
+
+手順や比較の説明に合わせてさらに1〜2個配置:
+<!-- IMAGE:step:英語20単語以内で画像内容を説明 -->
+<!-- IMAGE:compare:英語20単語以内で画像内容を説明 -->
+
+例: <!-- IMAGE:intro:Modern AI chatbot interface showing conversation on laptop screen -->
+
 ## SEO要件
 - キーワードをタイトル・導入・見出し・本文に自然な形で含める
 - 検索意図を最優先。導入文で読者の悩みに共感

@@ -52,6 +52,28 @@ class WordPressPoster:
             return f"{self.url}?rest_route={base_route}{path}"
         return f"{self.api_base}{path}"
 
+    def upload_media(self, image_bytes: bytes, filename: str = "header.png") -> Optional[int]:
+        """画像をWordPressメディアライブラリにアップロードしてmedia IDを返す。"""
+        headers = {
+            "Authorization": self.headers["Authorization"],
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": "image/png",
+        }
+        try:
+            resp = requests.post(
+                self._api_url("/media"),
+                headers=headers,
+                data=image_bytes,
+                timeout=60,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            logger.info(f"Media uploaded: id={data.get('id')} url={data.get('source_url')}")
+            return data.get("id"), data.get("source_url")
+        except Exception as e:
+            logger.warning(f"Media upload failed: {e}")
+            return None, None
+
     def post(self, article: dict, status: str = "publish") -> dict:
         category_id = self._get_or_create_category(article.get("category", ""))
         tag_ids = self._get_or_create_tags(article.get("tags", []))
@@ -67,6 +89,8 @@ class WordPressPoster:
             payload["categories"] = [category_id]
         if tag_ids:
             payload["tags"] = tag_ids
+        if article.get("featured_media_id"):
+            payload["featured_media"] = article["featured_media_id"]
 
         logger.info(f"Posting: '{article['title']}'")
         response = requests.post(
