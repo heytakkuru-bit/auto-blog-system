@@ -3,8 +3,9 @@
 
 # ログファイル
 *.log
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
+.env.backup
+.DS_Store
