@@ -146,6 +146,28 @@ class WordPressPoster:
                 ids.append(create.json()["id"])
         return ids
 
+    def update_post(self, wp_id: int, article: dict) -> dict:
+        """既存の投稿をタイトル・本文・アイキャッチで上書きする。"""
+        payload = {
+            "title": article["title"],
+            "content": article["content"],
+            "excerpt": article.get("excerpt", ""),
+        }
+        if article.get("featured_media_id"):
+            payload["featured_media"] = article["featured_media_id"]
+
+        logger.info(f"Updating post id={wp_id}: '{article['title']}'")
+        response = requests.post(
+            self._api_url(f"/posts/{wp_id}"),
+            json=payload,
+            headers=self.headers,
+            timeout=30,
+        )
+        response.raise_for_status()
+        result = response.json()
+        logger.info(f"Updated: id={result.get('id')} url={result.get('link')}")
+        return result
+
     def verify_connection(self) -> bool:
         try:
             resp = requests.get(
