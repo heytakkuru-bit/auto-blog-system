@@ -18,6 +18,8 @@ from dotenv import load_dotenv
 
 from article_generator import ArticleGenerator
 from wordpress_poster import WordPressPoster
+from product_generator import ProductGenerator
+from product_seller import ProductSeller
 from internal_link_manager import (
     PublishedArticle,
     find_related,
@@ -63,6 +65,36 @@ def _pick_next_entry(pending):
     return pending[0]  # 通常キーワードも尽きた場合は先頭
 
 
+def _attach_product(article: dict) -> dict:
+    """
+    記事に対応するプロンプト集を生成し、販売ページを作成して
+    記事末尾に CTA バナーを追加した article dict を返す。
+    失敗しても記事投稿は止めないよう例外を握り潰す。
+    """
+    try:
+        gen = ProductGenerator()
+        product = gen.generate(article)
+
+        seller = ProductSeller()
+        media = seller.upload_file(product["filepath"])
+        if not media:
+            logger.warning("[PRODUCT] Media upload failed, skipping sales page")
+            return article
+
+        page = seller.create_sales_page(product, media, article["title"])
+        if not page:
+            logger.warning("[PRODUCT] Sales page creation failed, skipping CTA")
+            return article
+
+        cta = seller.build_cta_html(product["title"], page.get("link", ""))
+        article = dict(article)
+        article["content"] = article["content"] + cta
+        logger.info(f"[PRODUCT] CTA attached: {page.get('link')}")
+    except Exception as e:
+        logger.error(f"[PRODUCT] Workflow failed (article will still post): {e}", exc_info=True)
+    return article
+
+
 def post_one_article() -> bool:
     pending = keyword_manager.load_pending()
     if not pending:
@@ -85,6 +117,10 @@ def post_one_article() -> bool:
         # 記事生成
         generator = ArticleGenerator()
         article = generator.generate(keyword, category, links_prompt)
+
+        # デジタル商材の自動生成（番外編記事はスキップ）
+        if os.getenv("ENABLE_PRODUCT", "true").lower() == "true" and category != HOBBY_CATEGORY:
+            article = _attach_product(article)
 
         # WordPress投稿
         poster = WordPressPoster()
