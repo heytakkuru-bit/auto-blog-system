@@ -90,8 +90,9 @@ class ImageGenerator:
     @staticmethod
     def build_prompt(keyword: str, description: str) -> str:
         return (
-            f"Professional illustration for Japanese tech blog article about '{keyword}'. "
+            f"High quality realistic photograph for a Japanese tech blog article about '{keyword}'. "
             f"{description} "
-            "Clean flat design style, modern and professional, bright colors, "
-            "no text or letters in image, no watermarks, suitable for web article header."
+            "Photorealistic style, natural lighting, candid or documentary feel, "
+            "like an actual screenshot or real-life photo a blogger would take, "
+            "no text overlays, no watermarks, suitable for web article."
         )

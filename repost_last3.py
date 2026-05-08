@@ -71,8 +71,9 @@ def attach_images(article: dict, keyword: str, poster: WordPressPoster) -> dict:
 
 
 def main():
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else 3
     data = json.load(open("published_articles.json"))
-    targets = data[-3:]
+    targets = data[-n:]
 
     poster = WordPressPoster()
     generator = ArticleGenerator()
@@ -95,8 +96,8 @@ def main():
         except Exception as e:
             logger.error(f"[FAIL] wp_id={wp_id}: {e}", exc_info=True)
 
-    logger.info(f"=== Done: {ok}/3 updated ===")
-    sys.exit(0 if ok == 3 else 1)
+    logger.info(f"=== Done: {ok}/{n} updated ===")
+    sys.exit(0 if ok == n else 1)
 
 
 if __name__ == "__main__":
