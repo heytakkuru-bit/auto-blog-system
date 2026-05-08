@@ -9,10 +9,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent / ".env")
 
-from article_generator import ArticleGenerator
+from article_generator import ArticleGenerator, HOBBY_CATEGORY
 from wordpress_poster import WordPressPoster
 from image_generator import ImageGenerator
 from internal_link_manager import find_related, format_links_for_prompt
+from product_generator import ProductGenerator
+from product_seller import ProductSeller
 
 logging.basicConfig(
     level=logging.INFO,
@@ -70,6 +72,31 @@ def attach_images(article: dict, keyword: str, poster: WordPressPoster) -> dict:
     return article
 
 
+def attach_product(article: dict, poster: WordPressPoster) -> dict:
+    """番外編以外の記事にプロンプト集CTAを付ける。失敗しても投稿は止めない。"""
+    if article.get("category") == HOBBY_CATEGORY:
+        return article
+    if os.getenv("ENABLE_PRODUCT", "true").lower() != "true":
+        return article
+    try:
+        gen = ProductGenerator()
+        product = gen.generate(article)
+        seller = ProductSeller()
+        media = seller.upload_file(product["filepath"])
+        if not media:
+            return article
+        page = seller.create_sales_page(product, media, article["title"])
+        if not page:
+            return article
+        cta = seller.build_cta_html(product["title"], page.get("link", ""))
+        article = dict(article)
+        article["content"] = article["content"] + cta
+        logger.info(f"[PRODUCT] CTA attached: {page.get('link')}")
+    except Exception as e:
+        logger.error(f"[PRODUCT] failed (article will still post): {e}", exc_info=True)
+    return article
+
+
 def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 3
     data = json.load(open("published_articles.json"))
@@ -90,6 +117,7 @@ def main():
             links_prompt = format_links_for_prompt(related)
             article = generator.generate(keyword, category, links_prompt)
             article = attach_images(article, keyword, poster)
+            article = attach_product(article, poster)
             poster.update_post(wp_id, article)
             logger.info(f"[OK] wp_id={wp_id} updated")
             ok += 1
