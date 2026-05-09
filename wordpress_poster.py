@@ -29,17 +29,18 @@ class WordPressPoster:
         self.api_base = self._detect_api_base()
 
     def _detect_api_base(self) -> str:
-        """パーマリンク設定に応じてREST APIのベースURLを自動判定する。"""
+        """REST APIのベースURLを判定する。pretty permalink を優先し、最大2回試みる。"""
         pretty = f"{self.url}/wp-json/wp/v2"
         fallback = f"{self.url}?rest_route=/wp/v2"
 
-        try:
-            resp = requests.get(f"{self.url}/wp-json/", timeout=8, allow_redirects=True)
-            if resp.ok and "routes" in resp.text:
-                logger.info(f"API base (pretty): {pretty}")
-                return pretty
-        except Exception:
-            pass
+        for attempt in range(2):
+            try:
+                resp = requests.get(f"{self.url}/wp-json/", timeout=10, allow_redirects=True)
+                if resp.ok and "routes" in resp.text:
+                    logger.info(f"API base (pretty): {pretty}")
+                    return pretty
+            except Exception:
+                pass
 
         logger.info(f"API base (fallback): {fallback}")
         return fallback

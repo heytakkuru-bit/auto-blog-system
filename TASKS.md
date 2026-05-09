@@ -1,6 +1,6 @@
 # TASKS.md — 進捗管理
 
-最終更新: 2026-05-08
+最終更新: 2026-05-09
 
 ---
 
@@ -12,58 +12,55 @@
 - [x] WordPress REST API 接続確認（teqsnap.com）
 
 ### 記事生成システム
-- [x] Gemini API による記事自動生成（キーワード → 記事）
+- [x] Gemini API による記事自動生成（1日3回: 08:00/13:00/20:00）
 - [x] 内部リンク自動挿入
-- [x] 1日3回スケジュール自動投稿（08:00 / 13:00 / 20:00）
-- [x] カテゴリ自動作成・タグ自動付与
 - [x] 番外編（趣味ログ）を6記事に1回混在
+- [x] カテゴリ・タグ自動作成
 
 ### ビジュアル強化
-- [x] `gemini-2.5-flash-image` による AI 画像生成
-- [x] WP メディアライブラリへの画像アップロード
+- [x] `gemini-2.5-flash-image` による AI 画像生成（リアル写真スタイル）
 - [x] アイキャッチ自動設定
-- [x] カラーコールアウトBOX（4種）
+- [x] カラーコールアウトBOX 4種
 - [x] ステップカード・比較テーブル・まとめBOX（inline style）
 
 ### ペルソナ・文体
 - [x] ペルソナ名: 「脳筋でタックルしかできないタックル」
-- [x] 文体: 関西弁に統一
+- [x] 文体: 関西弁
 - [x] ターゲット: AIに乗り遅れた初心者向け「教科書」スタイル
-- [x] 番外編も同ペルソナ・関西弁適用
 
-### デジタル商材・Stripe
+### デジタル商材・Stripe（竹）
 - [x] プロンプト集自動生成（keyword → .txt ファイル）
 - [x] WP パスワード保護販売ページ自動作成
-- [x] CTA バナー（記事末尾）自動挿入
-- [x] Stripe Payment Links 生成スクリプト作成（`stripe_setup.py`）
-- [x] サンクスページ URL 設定（`THANKS_PAGE_URL`）
+- [x] CTA バナー（竹メイン＋松プレースホルダー）
+- [x] stripe_setup.py: 竹・松両方の Payment Link 生成スクリプト
+- [x] サンクスページ作成・更新（パスワード表示済み）
 
 ### ドキュメント
-- [x] SPEC.md 作成
-- [x] CLAUDE.md 作成
-- [x] TASKS.md 作成（このファイル）
+- [x] SPEC.md（松竹二段構え販売モデル対応）
+- [x] CLAUDE.md
+- [x] TASKS.md（このファイル）
 
 ---
 
 ## 🔲 残タスク
 
-### 優先度: 高
-- [ ] **Stripe シークレットキーを `.env` に追加**  
-  → `STRIPE_SECRET_KEY=sk_live_...` を追記
-- [ ] **`python3 stripe_setup.py` を実行して Payment Link を発行**  
-  → 成功すると `.env` の `STRIPE_PAYMENT_URL` が自動更新
-- [ ] **`python3 repost_last3.py 3` を実行して全記事に決済ボタンを反映**
+### 優先度: 高（竹の販売開始）
+- [ ] **`.env` に `STRIPE_SECRET_KEY=sk_live_...` を追記**
+- [ ] **`python3 stripe_setup.py take` で竹（300円）Payment Link を発行**
+- [ ] **`python3 repost_last3.py 3` で直近3記事に決済ボタンを反映**
 
-### 優先度: 中
-- [ ] GitHub Actions の自動投稿ワークフロー確認・更新  
-  （`.github/workflows/daily_post.yml` — Node.js 24 対応済みか確認）
-- [ ] キーワード追加（現在残り 98/115 件）
-- [ ] サンクスページのデザイン確認・改善
+### 優先度: 中（松の準備）
+- [ ] 松（3,000円）の商品内容を確定
+  - 全記事プロンプト集セット
+  - 個別チャット相談の提供方法（Calendly / Discord など）
+- [ ] `python3 stripe_setup.py matsu` で松 Payment Link を発行
+- [ ] サンクスページに松専用コンテンツを追加
+- [ ] GitHub Actions の自動投稿ワークフロー確認
 
 ### 優先度: 低
+- [ ] キーワード追加（現在残り 98/115 件）
 - [ ] Python 3.11+ へのアップグレード検討
-- [ ] `requirements.txt` に `stripe` を追加
-- [ ] 投稿済み記事のSEOスコア確認
+- [ ] 投稿済み記事の SEO スコア確認
 
 ---
 
@@ -74,6 +71,8 @@
 | 総キーワード数 | 115 |
 | 投稿済み | 17 |
 | 残り | 98 |
-| WordPress 投稿 ID 最大値 | 54 |
 | 使用画像モデル | gemini-2.5-flash-image |
 | 使用記事モデル | gemini-2.5-flash-lite |
+| 竹価格 | 300円 |
+| 松価格 | 3,000円（準備中） |
+| サンクスページ | https://teqsnap.com/thanks-95bb6f0c3e9c9ad2/ |

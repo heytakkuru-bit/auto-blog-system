@@ -17,8 +17,32 @@ auto_blog/ （Python スクリプト群）
     ↓
 WordPress REST API（teqsnap.com）
     ↓
-Stripe Payment Links（300円商品）
+Stripe Payment Links（竹300円 / 松3,000円）
+    ↓
+サンクスページ（購入者限定コンテンツ）
 ```
+
+---
+
+## 商品構成（松・竹 二段構え）
+
+| プラン | 価格 | 内容 | Stripe ENV |
+|---|---|---|---|
+| **竹（標準）** | 300円 | 記事別プロンプト集3選（.txt） | `STRIPE_PAYMENT_URL_TAKE` |
+| **松（高級）** | 3,000円 | 全記事プロンプト集＋個別チャット相談1回 | `STRIPE_PAYMENT_URL_MATSU` |
+
+### 購入フロー（竹）
+1. 記事末尾CTAバナー「【竹】今すぐ購入（300円）」クリック
+2. Stripe決済
+3. 決済完了 → サンクスページへリダイレクト
+4. サンクスページでパスワード取得
+5. WP販売ページ（パスワード保護）でプロンプト集をダウンロード
+
+### 購入フロー（松）※将来展開
+1. 記事末尾CTAバナー「【松】フルサポートセット（3,000円）」クリック
+2. Stripe決済
+3. 決済完了 → サンクスページ（松専用コンテンツ）へリダイレクト
+4. 個別チャット相談の日程調整
 
 ---
 
@@ -26,14 +50,13 @@ Stripe Payment Links（300円商品）
 
 | 項目 | 設定値 |
 |---|---|
-| 記事生成モデル | gemini-2.5-flash-lite（→ gemini-2.5-flash にフォールバック） |
+| 記事生成モデル | gemini-2.5-flash-lite（→ gemini-2.5-flash → gemini-2.5-pro にフォールバック） |
 | 最低文字数 | 1,500文字 |
 | 投稿スケジュール | 08:00 / 13:00 / 20:00（1日3回） |
 | カテゴリ | 生成AI・プロンプト系 / WordPress・ブログ系 / 番外編・趣味ログ |
 | 番外編の割合 | 6記事に1回 |
 
 ### ビジュアル要素（全記事必須）
-
 - カラーコールアウトBOX（ポイント/詰む/感動/期待外れ）
 - ステップカード（手順説明）
 - 比較テーブル（他ツール比較）
@@ -48,30 +71,8 @@ Stripe Payment Links（300円商品）
 |---|---|
 | 使用モデル | `gemini-2.5-flash-image` |
 | 生成枚数 | 最大2枚/記事（`IMAGE_MAX_PER_ARTICLE` で制御） |
-| スタイル | リアル写真スタイル（フラットイラストではない） |
-| 無効化 | `ENABLE_IMAGES=false` で画像生成をスキップ |
-| 使用SDK | google-genai >= 1.0.0 |
-
----
-
-## デジタル商材・Stripe決済
-
-| 項目 | 設定値 |
-|---|---|
-| 商品 | 実戦プロンプト集3選（.txt） |
-| 価格 | 300円（固定） |
-| 決済 | Stripe Payment Links |
-| 決済後 | サンクスページ（`THANKS_PAGE_URL`）へリダイレクト |
-| サンクスページ | https://teqsnap.com/thanks-95bb6f0c3e9c9ad2/ |
-| CTA設置 | 通常記事末尾に自動挿入（番外編は除外） |
-
-### 購入フロー
-
-1. 記事末尾のCTAバナーをクリック
-2. Stripe決済ページ（300円）
-3. 決済完了 → サンクスページへリダイレクト
-4. サンクスページでパスワードを取得
-5. WP販売ページ（パスワード保護）でプロンプト集をダウンロード
+| スタイル | リアル写真スタイル |
+| 無効化 | `ENABLE_IMAGES=false` |
 
 ---
 
@@ -79,20 +80,22 @@ Stripe Payment Links（300円商品）
 
 ```
 auto_blog/
-├── main.py                 # メインスクリプト（スケジューラ）
-├── article_generator.py    # Gemini で記事生成
-├── image_generator.py      # Gemini で画像生成
-├── wordpress_poster.py     # WP REST API 投稿
-├── product_generator.py    # プロンプト集生成
-├── product_seller.py       # WP販売ページ作成・CTA生成
-├── stripe_setup.py         # Stripe Payment Link 生成
-├── repost_last3.py         # 直近N記事の再生成・更新
-├── keyword_manager.py      # キーワード管理
+├── main.py                  # メインスクリプト（スケジューラ）
+├── article_generator.py     # Gemini で記事生成
+├── image_generator.py       # Gemini で画像生成
+├── wordpress_poster.py      # WP REST API 投稿
+├── product_generator.py     # プロンプト集生成
+├── product_seller.py        # WP販売ページ作成・CTA生成（松竹対応）
+├── stripe_setup.py          # Stripe Payment Link 生成（松竹両対応）
+├── create_thanks_page.py    # サンクスページ作成・更新
+├── repost_last3.py          # 直近N記事の再生成・更新
+├── repost_ids.py            # wp_id指定で再生成・更新
+├── keyword_manager.py       # キーワード管理
 ├── internal_link_manager.py # 内部リンク管理
-├── keywords.txt            # キーワード一覧
-├── published_articles.json # 投稿済み記事DB
-├── .env                    # 環境変数（Git管理外）
-└── products/               # 生成されたプロンプト集
+├── keywords.txt             # キーワード一覧
+├── published_articles.json  # 投稿済み記事DB
+├── .env                     # 環境変数（Git管理外）
+└── products/                # 生成されたプロンプト集
 ```
 
 ---
@@ -100,15 +103,18 @@ auto_blog/
 ## 環境変数（.env）
 
 ```
-GEMINI_API_KEY=           # Google AI Studio APIキー
-WP_URL=                   # WordPress URL
-WP_USERNAME=              # WPログインメール
-WP_APP_PASSWORD=          # WPアプリケーションパスワード
-STRIPE_SECRET_KEY=        # Stripe シークレットキー
-STRIPE_PAYMENT_URL=       # 生成したPayment Link URL
-THANKS_PAGE_URL=          # 決済後リダイレクトURL
+GEMINI_API_KEY=
+WP_URL=https://teqsnap.com
+WP_USERNAME=
+WP_APP_PASSWORD=
+STRIPE_SECRET_KEY=           # Stripe シークレットキー
+STRIPE_PAYMENT_URL=          # 竹 Payment Link（後方互換用）
+STRIPE_PAYMENT_URL_TAKE=     # 竹（300円）Payment Link
+STRIPE_PAYMENT_URL_MATSU=    # 松（3,000円）Payment Link
+THANKS_PAGE_URL=https://teqsnap.com/thanks-95bb6f0c3e9c9ad2/
 PRODUCT_PRICE=300
-PRODUCT_PASSWORD=         # WP販売ページのパスワード
+PRODUCT_PRICE_MATSU=3000
+PRODUCT_PASSWORD=            # WP販売ページのパスワード
 ENABLE_PRODUCT=true
 ENABLE_IMAGES=true
 IMAGE_MAX_PER_ARTICLE=2

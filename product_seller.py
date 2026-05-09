@@ -5,6 +5,7 @@
 - 記事末尾 CTA HTML の生成
 """
 import os
+import re
 import base64
 import logging
 from pathlib import Path
@@ -34,10 +35,16 @@ class ProductSeller:
         }
         self.wp_url = wp_url
         self.api_base = self._detect_api_base()
-        self.price = os.getenv("PRODUCT_PRICE", "300")
-        self.password = os.getenv("PRODUCT_PASSWORD", "teqsnap2026")
-        self.stripe_url = os.getenv("STRIPE_PAYMENT_URL", "")
-        self.thanks_url = os.getenv("THANKS_PAGE_URL", "")
+        self.price_take  = os.getenv("PRODUCT_PRICE", "300")
+        self.price_matsu = os.getenv("PRODUCT_PRICE_MATSU", "3000")
+        self.password    = os.getenv("PRODUCT_PASSWORD", "teqsnap2026")
+        self.thanks_url  = os.getenv("THANKS_PAGE_URL", "")
+        # 竹: STRIPE_PAYMENT_URL_TAKE → STRIPE_PAYMENT_URL の順で参照
+        self.stripe_url_take  = (os.getenv("STRIPE_PAYMENT_URL_TAKE")
+                                 or os.getenv("STRIPE_PAYMENT_URL", ""))
+        self.stripe_url_matsu = os.getenv("STRIPE_PAYMENT_URL_MATSU", "")
+        # 後方互換
+        self.stripe_url = self.stripe_url_take
 
     def _detect_api_base(self) -> str:
         try:
@@ -59,12 +66,14 @@ class ProductSeller:
         with open(filepath, "rb") as f:
             file_content = f.read()
 
+        # HTTPヘッダーはASCIIのみ有効なので日本語ファイル名をサニタイズ
+        safe_name = re.sub(r"[^\x00-\x7F]", "_", filepath.name)
         resp = requests.post(
             self._api_url("/media"),
             data=file_content,
             headers={
                 "Authorization": self.auth_header,
-                "Content-Disposition": f'attachment; filename="{filepath.name}"',
+                "Content-Disposition": f'attachment; filename="{safe_name}"',
                 "Content-Type": "text/plain; charset=utf-8",
             },
             timeout=30,
@@ -115,7 +124,7 @@ class ProductSeller:
             f"<h3>購入・ダウンロード方法</h3>"
             f'<div style="background:#f0f4ff;border-left:4px solid #3b5bdb;padding:16px;margin:16px 0;border-radius:4px;">'
             f"<p><strong>このページはパスワード保護されています。</strong><br>"
-            f"① 下の「Stripeで購入する」ボタンからお支払い（{self.price}円）<br>"
+            f"① 下の「Stripeで購入する」ボタンからお支払い（{self.price_take}円）<br>"
             f"② 決済完了後、パスワードが表示されます<br>"
             f"③ このページに戻ってパスワードを入力するとダウンロードできます</p>"
             f"</div>"
@@ -123,7 +132,7 @@ class ProductSeller:
             f'<a href="{self.stripe_url}" target="_blank" rel="noopener" '
             f'style="display:inline-block;background:#635bff;color:white;'
             f'padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:16px;">'
-            f"Stripeで購入する（{self.price}円）</a></p>"
+            f"Stripeで購入する（{self.price_take}円）</a></p>"
             f"<h3>ダウンロード</h3>"
             f'<p><a href="{download_url}" download '
             f'style="display:inline-block;background:#3b5bdb;color:white;'
@@ -133,24 +142,42 @@ class ProductSeller:
         )
 
     def build_cta_html(self, product_title: str, sales_page_url: str) -> str:
-        """記事末尾に挿入する CTA バナー HTML を返す"""
-        buy_url = self.stripe_url if self.stripe_url else sales_page_url
+        """記事末尾に挿入する CTA バナー HTML（竹メイン＋松サブ）を返す"""
+        take_url  = self.stripe_url_take  or sales_page_url
+        matsu_url = self.stripe_url_matsu or ""
+
+        matsu_block = ""
+        if matsu_url:
+            matsu_block = (
+                f'<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.3);">'
+                f'<p style="font-size:12px;margin:0 0 8px;opacity:0.85;">もっと本気でAIを使いこなしたいなら</p>'
+                f'<a href="{matsu_url}" target="_blank" rel="noopener" '
+                f'style="display:inline-block;background:rgba(255,255,255,0.15);color:white;'
+                f'border:2px solid white;padding:9px 24px;border-radius:6px;font-weight:bold;'
+                f'text-decoration:none;font-size:14px;">【松】フルサポートセット（{self.price_matsu}円）</a>'
+                f'<p style="font-size:11px;margin:6px 0 0;opacity:0.65;">全記事プロンプト集 + 個別チャット相談1回</p>'
+                f'</div>'
+            )
+        else:
+            matsu_block = (
+                f'<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.3);">'
+                f'<p style="font-size:11px;margin:0;opacity:0.6;">🚀 近日公開：【松】フルサポートセット（{self.price_matsu}円）— 個別相談付き</p>'
+                f'</div>'
+            )
+
         return (
             f'<div style="background:linear-gradient(135deg,#3b5bdb,#7048e8);'
-            f"color:white;padding:24px;border-radius:12px;margin:32px 0;text-align:center;"
-            f'font-family:sans-serif;">'
-            f'<p style="font-size:13px;margin:0 0 6px;opacity:0.85;">'
-            f"この記事の作業をAIで一瞬で終わらせる</p>"
-            f'<p style="font-size:19px;font-weight:bold;margin:0 0 10px;">'
-            f"{product_title}</p>"
-            f'<p style="font-size:12px;margin:0 0 16px;opacity:0.8;">'
-            f"実戦プロンプト3選 ✅ 2026年動作確認済み ✅ コピペで即使える</p>"
-            f'<a href="{buy_url}" target="_blank" rel="noopener" '
+            f'color:white;padding:28px 24px;border-radius:12px;margin:40px 0;text-align:center;font-family:sans-serif;">'
+            f'<p style="font-size:11px;margin:0 0 4px;opacity:0.75;letter-spacing:0.05em;">この記事の作業をAIで一瞬で終わらせる</p>'
+            f'<p style="font-size:20px;font-weight:bold;margin:0 0 8px;">{product_title}</p>'
+            f'<p style="font-size:12px;margin:0 0 18px;opacity:0.85;">'
+            f'実戦プロンプト3選 ✅ 2026年動作確認済み ✅ コピペで即使える</p>'
+            f'<a href="{take_url}" target="_blank" rel="noopener" '
             f'style="display:inline-block;background:white;color:#3b5bdb;'
-            f"padding:11px 28px;border-radius:6px;font-weight:bold;"
-            f'text-decoration:none;font-size:15px;">'
-            f"Stripeで即購入（{self.price}円）</a>"
-            f'<p style="margin:10px 0 0;font-size:11px;opacity:0.65;">'
-            f"クレジットカード決済 / 購入直後にパスワードが届きます</p>"
-            f"</div>"
+            f'padding:13px 32px;border-radius:8px;font-weight:bold;text-decoration:none;font-size:16px;">'
+            f'【竹】今すぐ購入（{self.price_take}円）</a>'
+            f'<p style="margin:8px 0 0;font-size:11px;opacity:0.6;">'
+            f'クレジットカード決済 / 購入直後にダウンロード可能</p>'
+            f'{matsu_block}'
+            f'</div>'
         )
