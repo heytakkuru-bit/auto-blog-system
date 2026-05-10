@@ -65,13 +65,16 @@ Stripe Payment Links（竹300円 / 松3,000円）
 
 ---
 
-## 画像生成
+## マスコットキャラクター
+
+サイトの象徴として **脳筋可愛いゴリラ** を起用。親しみやすさと信頼感を両立させる。
 
 | 項目 | 設定値 |
 |---|---|
-| 使用モデル | `gemini-2.5-flash-image` |
-| 生成枚数 | 最大2枚/記事（`IMAGE_MAX_PER_ARTICLE` で制御） |
-| スタイル | リアル写真スタイル |
+| キャラクター | 筋肉隆々だが瞳クリクリの愛くるしいテックゴリラ |
+| スタイル | Pixar/Disney 風 3D クレイアニメ |
+| ファイル | `assets/gorilla-mascot.png` |
+| 用途 | 全記事のアイキャッチ（OGP）に固定使用 |
 | 無効化 | `ENABLE_IMAGES=false` |
 
 ---
@@ -82,7 +85,9 @@ Stripe Payment Links（竹300円 / 松3,000円）
 auto_blog/
 ├── main.py                  # メインスクリプト（スケジューラ）
 ├── article_generator.py     # Gemini で記事生成
-├── image_generator.py       # Gemini で画像生成
+├── image_generator.py       # マスコット画像（gorilla-mascot.png）をロード
+├── assets/
+│   └── gorilla-mascot.png   # 専属マスコット（全記事共通アイキャッチ）
 ├── wordpress_poster.py      # WP REST API 投稿
 ├── product_generator.py     # プロンプト集生成
 ├── product_seller.py        # WP販売ページ作成・CTA生成（松竹対応）

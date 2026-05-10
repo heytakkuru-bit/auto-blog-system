@@ -35,6 +35,10 @@
 - [x] stripe_setup.py: 竹・松両方の Payment Link 生成スクリプト
 - [x] サンクスページ作成・更新（パスワード表示済み）
 
+### ブランドイメージ
+- [x] 脳筋可愛いゴリラ マスコット生成（assets/gorilla-mascot.png）
+- [x] 全記事アイキャッチをゴリラ固定に変更（image_generator.py 書き換え）
+
 ### ドキュメント
 - [x] SPEC.md（松竹二段構え販売モデル対応）
 - [x] CLAUDE.md
@@ -44,10 +48,11 @@
 
 ## 🔲 残タスク
 
-### 優先度: 高（竹の販売開始）
+### 優先度: 高（Stripe 決済の安定化）
 - [ ] **`.env` に `STRIPE_SECRET_KEY=sk_live_...` を追記**
 - [ ] **`python3 stripe_setup.py take` で竹（300円）Payment Link を発行**
 - [ ] **`python3 repost_last3.py 3` で直近3記事に決済ボタンを反映**
+- [ ] Stripe Webhook 設定・決済完了フローの動作確認
 
 ### 優先度: 中（松の準備）
 - [ ] 松（3,000円）の商品内容を確定
