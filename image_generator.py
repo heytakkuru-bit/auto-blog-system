@@ -59,7 +59,10 @@ class ImageGenerator:
                 ),
             )
             response = future.result(timeout=IMAGE_TIMEOUT)
-        for part in response.candidates[0].content.parts:
+        candidates = response.candidates if response else []
+        if not candidates or not candidates[0].content:
+            return None
+        for part in candidates[0].content.parts:
             if part.inline_data and part.inline_data.data:
                 data = part.inline_data.data
                 # SDK によって str(base64) か bytes かが異なる
@@ -80,6 +83,7 @@ class ImageGenerator:
                     aspect_ratio="16:9",
                     safety_filter_level="BLOCK_LOW_AND_ABOVE",
                     person_generation="DONT_ALLOW",
+                    # negative_prompt は Vertex AI 専用。Gemini API では prompt 内の "Avoid:" で代替
                 ),
             )
             response = future.result(timeout=IMAGE_TIMEOUT)
@@ -87,12 +91,27 @@ class ImageGenerator:
             return response.generated_images[0].image.image_bytes
         return None
 
+    # AI 生成感を消すネガティブワード（プロンプト末尾に付与 & Imagen の negative_prompt に使用）
+    NEGATIVE = (
+        "3d render, cg, cartoon, illustration, plastic, airbrushed, "
+        "over-saturated, glowing skin, cartoonish, perfect symmetry, "
+        "watermark, low resolution, text overlay, logo"
+    )
+
+    # リアルフォト化キーワード（常に末尾付与）
+    REAL_PHOTO_SUFFIX = (
+        "photorealistic, candid, shot on 35mm lens, natural lighting, "
+        "soft bokeh, film grain, highly detailed textures, imperfect, "
+        "lifelike skin texture"
+    )
+
     @staticmethod
     def build_prompt(keyword: str, description: str) -> str:
-        return (
-            f"High quality realistic photograph for a Japanese tech blog article about '{keyword}'. "
+        positive = (
+            f"Candid real-world photograph for a Japanese tech blog about '{keyword}'. "
             f"{description} "
-            "Photorealistic style, natural lighting, candid or documentary feel, "
-            "like an actual screenshot or real-life photo a blogger would take, "
-            "no text overlays, no watermarks, suitable for web article."
+            "Subject centered, background naturally blurred. "
+            f"{ImageGenerator.REAL_PHOTO_SUFFIX}. "
+            f"Avoid: {ImageGenerator.NEGATIVE}."
         )
+        return positive
