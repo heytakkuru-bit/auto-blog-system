@@ -17,10 +17,11 @@ IMAGE_TIMEOUT = 60
 
 # キャラクター定義（全プロンプト共通）
 GORILLA_BASE = (
-    "The mascot is a cute muscular gorilla character with big round sparkling eyes, "
-    "warm smile, and a small wireless headset on one ear. "
+    "A cute muscular gorilla character with big round sparkling eyes and a warm smile. "
     "Pixar/Disney 3D clay animation style, soft rounded shapes, vibrant colors. "
-    "Simple clean background. No text, no watermarks. Square composition."
+    "Simple clean background. Square composition. "
+    "IMPORTANT: absolutely no text, no letters, no numbers, no characters, "
+    "no symbols, no watermarks, no signs, no writing of any kind anywhere in the image."
 )
 
 
@@ -94,9 +95,10 @@ class ImageGenerator:
     @staticmethod
     def build_prompt(keyword: str, description: str) -> str:
         """記事テーマに合わせたゴリラシーンのプロンプトを生成する。"""
+        # keyword を英語寄りのシーン説明に変換（日本語キーワードがそのまま画像に出ないよう除外）
         return (
             f"{GORILLA_BASE} "
-            f"Scene: the gorilla is enthusiastically doing something related to '{keyword}'. "
-            f"{description} "
-            "The gorilla looks excited and happy, in a fun tech-savvy pose."
+            f"Scene: the gorilla is enthusiastically and happily doing an activity "
+            f"related to the topic: {description} "
+            "Fun tech-savvy pose. No Japanese, no Chinese, no Korean, no text of any kind."
         )
