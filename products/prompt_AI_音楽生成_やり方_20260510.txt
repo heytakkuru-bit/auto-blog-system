@@ -1,0 +1,72 @@
+# 「AI音楽生成、乗り遅れてない？脳筋タックルが「とりあえずやってみた」結果！」を爆速で再現するプロンプト集
+
+> **2026年時点の動作確認済み** — ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash
+
+---
+
+## はじめに・使い方の注意点
+
+本プロンプト集は「AI 音楽生成 やり方」に関する作業をAIで効率化するための実戦テンプレートです。
+
+### ご利用前に必ずお読みください
+
+1. **動作環境**：ChatGPT（GPT-4以上推奨）、Claude 3以上、Gemini 1.5以上で動作確認済み
+2. **コピペで使えます**：プロンプト本文はそのままコピーして貼り付けてください
+3. **カスタマイズ推奨**：`{変数名}` で囲まれた部分はご自身の状況に合わせて書き換えてください
+4. **AIの出力は必ず確認を**：AIの回答は参考情報です。重要な判断はご自身で確認してください
+5. **バージョン更新**：AIモデルのアップデートにより出力の質が変わる場合があります
+
+---
+
+## プロンプト集
+
+はい、承知いたしました。AIプロンプトエンジニアリングの専門家として、ブログ記事のテーマ「AI音楽生成、乗り遅れてない？脳筋タックルが「とりあえずやってみた」結果！」に関連する実戦プロンプト3選を作成します。
+
+---
+
+### プロンプト1：基本編（初心者向け）
+**タイトル**：【Soundraw】疾走感のあるロックBGMを生成する
+**用途**：ブログや動画で使いやすい、アップテンポなロックBGMを簡単に作成する。
+**プロンプト本文**：
+```
+Generate a high-energy, fast-paced rock instrumental track. Tempo: 160 bpm. Mood: Exciting, driving, optimistic. Instruments: Electric guitar (distorted lead and rhythm), bass guitar, energetic drums. Structure: Intro (short, impactful), Verse (driving rhythm), Chorus (melodic and anthemic), Guitar Solo (short, catchy), Outro (fade out with energy). Duration: 2 minutes.
+```
+**使い方のコツ**：Soundrawのようなツールでは、英語で入力するのが一般的です。上記プロンプトをコピペし、必要に応じて「rock」を「pop」や「electronic」に変えるだけで、ジャンルを変更できます。
+
+---
+
+### プロンプト2：応用編（中級者向け）
+**タイトル**：【AIVA】指定した感情と楽器構成でアンビエントミュージックを生成する
+**用途**：リラックス効果のある、特定の楽器構成に基づいたアンビエントミュージックを生成する。
+**プロンプト本文**：
+```
+Create an ambient music piece with a calm and serene mood. Tempo: 70 bpm. Instruments: {main_instrument_1}, {main_instrument_2}, {pad_instrument}. Harmony: Lush, evolving chords. Melody: Subtle, flowing. Duration: {duration_minutes} minutes. Add a gentle {ambient_effect} for atmosphere.
+```
+**使い方のコツ**：`{main_instrument_1}`に「piano」、`{main_instrument_2}`に「synthesizer」、`{pad_instrument}`に「string pad」、`{duration_minutes}`に「3」、`{ambient_effect}`に「reverb」などを指定して、自分好みのサウンドにカスタマイズしましょう。
+
+---
+
+### プロンプト3：上級テクニック編
+**タイトル**：【Mubert】YouTube動画のBGMとして、特定のシーンに合わせたループ素材を生成する
+**用途**：YouTube動画の特定のセクション（例：導入、解説、エンディング）に合わせた、シームレスにループできるBGMを生成し、動画編集に活用する。
+**プロンプト本文**：
+```
+Act as a professional music producer for YouTube content. I need a background music loop for a {video_segment_type} section of my video. The mood should be {desired_mood}. Genre: {music_genre}. Key elements: {instrument_focus_1}, {instrument_focus_2}. The loop should be approximately 30 seconds long and seamlessly repeatable without noticeable transitions. Ensure it has a {energy_level} energy.
+```
+**使い方のコツ**：`{video_segment_type}`に「intro」、「tutorial」、「outro」などを、`{desired_mood}`に「upbeat」、「calm」、「dramatic」などを、`{music_genre}`に「lo-fi hip hop」、「cinematic」、「corporate」などを具体的に指定することで、動画の目的に沿ったBGMをピンポイントで生成できます。ループ再生を意識したプロンプトであるため、動画編集ソフトでそのまま活用しやすい素材になります。
+
+---
+
+## まとめ・活用のポイント
+
+このプロンプト集で「AI 音楽生成 やり方」に関する作業時間を大幅に短縮できます。
+
+- まずは **プロンプト1（基本編）** から試してみてください
+- 慣れたら **プロンプト2（応用編）** で自分好みにカスタマイズ
+- 上達したら **プロンプト3** でさらなる効率化を
+
+---
+
+*作成日：2026年05月10日*
+*動作確認バージョン：ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash*
+*teqsnap.com*

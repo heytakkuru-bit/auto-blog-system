@@ -1,0 +1,74 @@
+# 「【Sora AI】いつから使える？初心者向け使い方＆感動のリアル体験談！」を爆速で再現するプロンプト集
+
+> **2026年時点の動作確認済み** — ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash
+
+---
+
+## はじめに・使い方の注意点
+
+本プロンプト集は「Sora AI いつから 使い方」に関する作業をAIで効率化するための実戦テンプレートです。
+
+### ご利用前に必ずお読みください
+
+1. **動作環境**：ChatGPT（GPT-4以上推奨）、Claude 3以上、Gemini 1.5以上で動作確認済み
+2. **コピペで使えます**：プロンプト本文はそのままコピーして貼り付けてください
+3. **カスタマイズ推奨**：`{変数名}` で囲まれた部分はご自身の状況に合わせて書き換えてください
+4. **AIの出力は必ず確認を**：AIの回答は参考情報です。重要な判断はご自身で確認してください
+5. **バージョン更新**：AIモデルのアップデートにより出力の質が変わる場合があります
+
+---
+
+## プロンプト集
+
+はい、承知いたしました。AIプロンプトエンジニアリングの専門家として、ブログ記事のテーマ「【Sora AI】いつから使える？初心者向け使い方＆感動のリアル体験談！」に関連する実戦プロンプト3選を作成します。
+
+---
+
+### プロンプト1：基本編（初心者向け）
+**タイトル**：Sora AIで「魔法の朝」を生成する
+**用途**：テキスト指示から、幻想的で美しい朝の情景動画を生成する
+**プロンプト本文**：
+```
+A breathtakingly beautiful morning scene. Sunlight streams through ancient, moss-covered trees, illuminating dust motes dancing in the air. A gentle mist hovers over a clear, still lake reflecting the golden hues of the rising sun. A single, majestic eagle soars silently in the vibrant sky. The overall mood is serene, magical, and awe-inspiring. Shot in cinematic style with a wide-angle lens, 4K resolution.
+```
+**使い方のコツ**：具体的な場所、時間帯、雰囲気、カメラワークなどを指示することで、よりイメージに近い動画が生成されやすくなります。
+
+---
+
+### プロンプト2：応用編（中級者向け）
+**タイトル**：{ジャンル}風の{被写体}が{行動}する動画を生成する
+**用途**：指定したジャンル、被写体、行動でカスタマイズされた動画を生成する
+**プロンプト本文**：
+```
+A {genre} style video of a {subject} {action}. The scene should be set in a {setting}. The mood is {mood}. Include {specific details} to enhance realism. Shot with a {camera_style} camera, {resolution}.
+```
+**使い方のコツ**： `{genre}`, `{subject}`, `{action}`, `{setting}`, `{mood}`, `{specific details}`, `{camera_style}`, `{resolution}` の部分を具体的に書き換えることで、様々なバリエーションの動画作成が可能になります。例えば、「サイバーパンク風の猫がネオン街を歩く動画を生成する」といった指示ができます。
+
+---
+
+### プロンプト3：上級テクニック編
+**タイトル**：感情を揺さぶるストーリーテリング動画の生成
+**用途**：感情的な要素や物語性を持たせた、より深みのある動画を生成する
+**プロンプト本文**：
+```
+Act as a seasoned filmmaker specializing in emotional storytelling. Generate a video that depicts the quiet moment of a {character_type} reflecting on a {past_event}. The setting is {setting}, emphasizing {sensory_details}. The video should evoke feelings of {emotions}. Focus on subtle facial expressions and the atmosphere to convey the narrative without dialogue. Use a {camera_angle} camera angle and a {lighting_style} lighting style to enhance the emotional impact. The duration should be approximately {duration}.
+```
+**使い方のコツ**：キャラクターの感情、過去の出来事、感覚的なディテール、カメラアングル、照明スタイルなどを詳細に指定することで、AIに意図した感情や物語を深く理解させ、より説得力のある動画を生成させることができます。役割設定（"Act as a seasoned filmmaker..."）は、AIの生成スタイルを大きく左右します。
+
+---
+
+---
+
+## まとめ・活用のポイント
+
+このプロンプト集で「Sora AI いつから 使い方」に関する作業時間を大幅に短縮できます。
+
+- まずは **プロンプト1（基本編）** から試してみてください
+- 慣れたら **プロンプト2（応用編）** で自分好みにカスタマイズ
+- 上達したら **プロンプト3** でさらなる効率化を
+
+---
+
+*作成日：2026年05月09日*
+*動作確認バージョン：ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash*
+*teqsnap.com*

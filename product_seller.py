@@ -4,10 +4,12 @@
 - パスワード保護付き販売ページの自動作成
 - 記事末尾 CTA HTML の生成
 """
+import io
 import os
 import re
 import base64
 import logging
+import zipfile
 from pathlib import Path
 
 import requests
@@ -62,19 +64,23 @@ class ProductSeller:
         return f"{self.api_base}{path}"
 
     def upload_file(self, filepath: Path) -> dict:
-        """.md ファイルを WordPress メディアライブラリにアップロードする"""
-        with open(filepath, "rb") as f:
-            file_content = f.read()
+        """ファイルを ZIP 化して WordPress メディアライブラリにアップロードする"""
+        # サーバーの WAF が .txt を弾くため ZIP に変換してアップロード
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.write(filepath, arcname=filepath.name)
+        zip_bytes = buf.getvalue()
 
-        # HTTPヘッダーはASCIIのみ有効なので日本語ファイル名をサニタイズ
-        safe_name = re.sub(r"[^\x00-\x7F]", "_", filepath.name)
+        safe_stem = re.sub(r"[^\x00-\x7F]", "_", filepath.stem)
+        zip_name = f"{safe_stem}.zip"
+
         resp = requests.post(
             self._api_url("/media"),
-            data=file_content,
+            data=zip_bytes,
             headers={
                 "Authorization": self.auth_header,
-                "Content-Disposition": f'attachment; filename="{safe_name}"',
-                "Content-Type": "text/plain; charset=utf-8",
+                "Content-Disposition": f'attachment; filename="{zip_name}"',
+                "Content-Type": "application/zip",
             },
             timeout=30,
         )
@@ -137,8 +143,8 @@ class ProductSeller:
             f'<p><a href="{download_url}" download '
             f'style="display:inline-block;background:#3b5bdb;color:white;'
             f'padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;">'
-            f"プロンプト集をダウンロード</a></p>"
-            f"<p><small>テキストエディタ（メモ帳など）で開けます</small></p>"
+            f"プロンプト集をダウンロード（ZIP）</a></p>"
+            f"<p><small>ZIP を解凍するとテキストファイルが入っています。メモ帳などで開けます。</small></p>"
         )
 
     def build_cta_html(self, product_title: str, sales_page_url: str) -> str:
