@@ -1,4 +1,4 @@
-# 「AI音楽生成、乗り遅れてない？脳筋タックルが「とりあえずやってみた」結果！」を爆速で再現するプロンプト集
+# 「【AI音楽生成】初心者でも作曲できる！脳筋タックルが乗り遅れ防止！」を爆速で再現するプロンプト集
 
 > **2026年時点の動作確認済み** — ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash
 
@@ -20,40 +20,71 @@
 
 ## プロンプト集
 
-はい、承知いたしました。AIプロンプトエンジニアリングの専門家として、ブログ記事のテーマ「AI音楽生成、乗り遅れてない？脳筋タックルが「とりあえずやってみた」結果！」に関連する実戦プロンプト3選を作成します。
+はい、承知いたしました。AI音楽生成のブログ記事「【AI音楽生成】初心者でも作曲できる！脳筋タックルが乗り遅れ防止！」のテーマに関連する「実戦プロンプト3選」を、ご指定の形式で作成します。
 
 ---
 
 ### プロンプト1：基本編（初心者向け）
-**タイトル**：【Soundraw】疾走感のあるロックBGMを生成する
-**用途**：ブログや動画で使いやすい、アップテンポなロックBGMを簡単に作成する。
+**タイトル**：はじめてのAI作曲！元気が出るポップス
+**用途**：AIに簡単な指示で、明るく元気なポップス楽曲を生成させる。
 **プロンプト本文**：
 ```
-Generate a high-energy, fast-paced rock instrumental track. Tempo: 160 bpm. Mood: Exciting, driving, optimistic. Instruments: Electric guitar (distorted lead and rhythm), bass guitar, energetic drums. Structure: Intro (short, impactful), Verse (driving rhythm), Chorus (melodic and anthemic), Guitar Solo (short, catchy), Outro (fade out with energy). Duration: 2 minutes.
+Generate a cheerful and upbeat pop song. The song should have a catchy melody, a driving beat, and a positive vibe. Include a simple verse, chorus, and bridge structure. Instruments: Synthesizer lead, electronic drums, bass guitar, and a light piano. Tempo: 120 bpm. Key: C Major.
 ```
-**使い方のコツ**：Soundrawのようなツールでは、英語で入力するのが一般的です。上記プロンプトをコピペし、必要に応じて「rock」を「pop」や「electronic」に変えるだけで、ジャンルを変更できます。
+**使い方のコツ**：まずはこのプロンプトで生成してみて、AI音楽生成の基本的な流れと出力を体験してみましょう。
 
 ---
 
 ### プロンプト2：応用編（中級者向け）
-**タイトル**：【AIVA】指定した感情と楽器構成でアンビエントミュージックを生成する
-**用途**：リラックス効果のある、特定の楽器構成に基づいたアンビエントミュージックを生成する。
+**タイトル**：イメージを具体化！情景描写風BGM
+**用途**：特定の情景や雰囲気をAIに伝え、それに合わせたBGMを生成する。
 **プロンプト本文**：
 ```
-Create an ambient music piece with a calm and serene mood. Tempo: 70 bpm. Instruments: {main_instrument_1}, {main_instrument_2}, {pad_instrument}. Harmony: Lush, evolving chords. Melody: Subtle, flowing. Duration: {duration_minutes} minutes. Add a gentle {ambient_effect} for atmosphere.
+Create a background music track that evokes the feeling of {情景・雰囲気} at {時間帯}. The mood should be {感情・雰囲気}. Use instruments like {楽器リスト} to create a {音楽ジャンル} style. Include elements such as {特徴的な音やリズム} to enhance the atmosphere. Tempo: {テンポ} bpm. Key: {キー}.
 ```
-**使い方のコツ**：`{main_instrument_1}`に「piano」、`{main_instrument_2}`に「synthesizer」、`{pad_instrument}`に「string pad」、`{duration_minutes}`に「3」、`{ambient_effect}`に「reverb」などを指定して、自分好みのサウンドにカスタマイズしましょう。
+**使い方のコツ**：`{情景・雰囲気}`、`{時間帯}`、`{感情・雰囲気}`、`{楽器リスト}`、`{音楽ジャンル}`、`{特徴的な音やリズム}`、`{テンポ}`、`{キー}` の部分を具体的に書き換えることで、よりイメージに近い楽曲を生成できます。例えば、「雨上がりの森」「夕暮れ時」「穏やか」「ピアノ、ストリングス、アコースティックギター」「アンビエント」「鳥のさえずり」「80」「A minor」のように指定します。
 
 ---
 
 ### プロンプト3：上級テクニック編
-**タイトル**：【Mubert】YouTube動画のBGMとして、特定のシーンに合わせたループ素材を生成する
-**用途**：YouTube動画の特定のセクション（例：導入、解説、エンディング）に合わせた、シームレスにループできるBGMを生成し、動画編集に活用する。
+**タイトル**：感情の移り変わりを表現するストーリー性のある楽曲
+**用途**：楽曲の展開や感情の変化をAIに指示し、よりドラマチックな楽曲を生成する。
 **プロンプト本文**：
 ```
-Act as a professional music producer for YouTube content. I need a background music loop for a {video_segment_type} section of my video. The mood should be {desired_mood}. Genre: {music_genre}. Key elements: {instrument_focus_1}, {instrument_focus_2}. The loop should be approximately 30 seconds long and seamlessly repeatable without noticeable transitions. Ensure it has a {energy_level} energy.
+Act as a professional music composer. I want to create a song that tells a story with emotional progression.
+
+**Part 1: Introduction**
+Describe the initial mood and instrumentation.
+Mood: {導入部の雰囲気}
+Instrumentation: {導入部の楽器}
+Tempo: {導入部のテンポ} bpm
+Key: {導入部のキー}
+
+**Part 2: Development**
+Describe how the mood and instrumentation change to build tension or introduce a new theme.
+Mood Shift: {展開の変化}
+New Instrumentation: {追加・変更楽器}
+Tempo Change: {展開部のテンポ} bpm
+Key Change (optional): {展開部のキー}
+
+**Part 3: Climax**
+Describe the most intense or emotional part of the song.
+Mood: {クライマックスの雰囲気}
+Instrumentation: {クライマックスの楽器・サウンド}
+Tempo: {クライマックスのテンポ} bpm
+Key: {クライマックスのキー}
+
+**Part 4: Resolution**
+Describe how the song concludes, returning to a calmer state or fading out.
+Mood: {結末の雰囲気}
+Instrumentation: {結末の楽器}
+Tempo: {結末のテンポ} bpm
+Key: {結末のキー}
+
+Overall genre: {全体の音楽ジャンル}
+Desired length: {希望の長さ}
 ```
-**使い方のコツ**：`{video_segment_type}`に「intro」、「tutorial」、「outro」などを、`{desired_mood}`に「upbeat」、「calm」、「dramatic」などを、`{music_genre}`に「lo-fi hip hop」、「cinematic」、「corporate」などを具体的に指定することで、動画の目的に沿ったBGMをピンポイントで生成できます。ループ再生を意識したプロンプトであるため、動画編集ソフトでそのまま活用しやすい素材になります。
+**使い方のコツ**：各パートの `{}` 内を具体的に記述することで、AIに楽曲の構成や感情の移り変わりを明確に指示できます。例えば、「導入部の雰囲気」を「静かで神秘的」、「展開の変化」を「徐々に力強く、希望に満ちた感じ」のように指定します。これにより、単なるBGMではなく、ストーリーを感じさせる楽曲生成が可能になります。
 
 ---
 

@@ -1,4 +1,4 @@
-# 「【Suno AI】歌詞生成が爆速！AI音楽の教科書！乗り遅れてるそこの君！」を爆速で再現するプロンプト集
+# 「【Suno AI】乗り遅れ厳禁！歌詞生成AIでオリ曲爆誕！初心者向け超絶解説」を爆速で再現するプロンプト集
 
 > **2026年時点の動作確認済み** — ChatGPT-4o / Claude Sonnet 4.6 / Gemini 2.0 Flash
 
@@ -20,60 +20,135 @@
 
 ## プロンプト集
 
-はい、承知いたしました。AIプロンプトエンジニアリングの専門家として、ご提示いただいたブログ記事のテーマとキーワードに基づき、Suno AIの歌詞生成を爆速化・効率化するための実践的なプロンプトを3つ作成します。
+はい、承知いたしました。AIプロンプトエンジニアリングの専門家として、ブログ記事のテーマ「【Suno AI】乗り遅れ厳禁！歌詞生成AIでオリ曲爆誕！初心者向け超絶解説」とキーワード「Suno AI 歌詞 テンプレ」に関連する実戦プロンプト3選を作成します。
 
 ---
 
 ### プロンプト1：基本編（初心者向け）
-**タイトル**：【Suno AI】爆速！お題から歌詞を自動生成！
-**用途**：簡単なキーワードやテーマを入力するだけで、Suno AIが自動で歌詞を生成します。
+**タイトル**：【Suno AI】初めてのオリ曲作り！感情を込めた歌詞で一曲完成
+**用途**：入力した歌詞を元に、感情に合った楽曲を自動生成します。
 **プロンプト本文**：
 ```
-Generate lyrics for a song about: [ここに曲にしたいテーマやキーワードを具体的に入力。例：失恋したばかりの夜、都会のネオン、夢を追いかける日々]
-The song should be in the style of: [曲調や雰囲気を指定。例：J-POP、ロックバラード、EDM]
-Include themes of: [歌詞に含めたい要素を箇条書きで。例：後悔、希望、都会の孤独]
-Make sure the lyrics have a clear verse-chorus structure.
+A melancholic ballad about remembering a past love, with lyrics:
+
+(Verse 1)
+The rain outside is falling down, just like the tears I can't hold back.
+Each drop a memory of your smile, a whisper on the lonely track.
+I walk these streets we used to know, but now they feel so cold and bare.
+Just echoes of the laughter shared, a ghost of you is everywhere.
+
+(Chorus)
+Oh, how I wish I could turn back time, to that moment we first met.
+Before the words, before the pain, before this deep and sad regret.
+This love, a melody that haunts, a song I can't unlearn or cease.
+Lost in the rhythm of your name, I search in vain for inner peace.
+
+(Verse 2)
+The moon hangs high, a silver disc, reflecting shadows in my mind.
+Of stolen glances, gentle hands, the precious moments left behind.
+I try to build a brand new world, but every stone leads back to you.
+This ache within, a constant hum, a love that time cannot subdue.
+
+(Chorus)
+Oh, how I wish I could turn back time, to that moment we first met.
+Before the words, before the pain, before this deep and sad regret.
+This love, a melody that haunts, a song I can't unlearn or cease.
+Lost in the rhythm of your name, I search in vain for inner peace.
+
+(Outro)
+Just the rain... and your memory... forever in my heart.
+Forever in my heart...
 ```
-**使い方のコツ**：テーマは具体的であればあるほど、イメージに近い歌詞が生成されやすくなります。曲調や含めたい要素も追加することで、よりパーソナルな歌詞になります。
+**使い方のコツ**：歌詞をそのまま入力し、曲の雰囲気を伝える単語（例: "melancholic ballad"）を冒頭に加えるだけで、Suno AIがイメージに合った楽曲を生成してくれます。
 
 ---
 
 ### プロンプト2：応用編（中級者向け）
-**タイトル**：【Suno AI】感情と情景を織り交ぜた物語性のある歌詞生成
-**用途**：特定の感情や情景を指定し、より物語性のある、深みのある歌詞を生成します。
+**タイトル**：【Suno AI】ジャンル指定＆ムード調整！理想のサウンドを追求
+**用途**：歌詞に加えて、曲のジャンルやムードを細かく指定して、よりイメージに近い楽曲を生成します。
 **プロンプト本文**：
 ```
-Generate lyrics for a song that evokes a feeling of {感情の種類。例：切なさ、高揚感、郷愁} and depicts the scene of {情景描写。例：雨上がりの公園、深夜のドライブ、古い写真を見返す部屋}
-The genre is {ジャンル。例：シンガーソングライター、ポップス、フォーク}
-The protagonist's perspective is {視点。例：一人称、三人称} and they are experiencing {主人公の状況や心情。例：過去の思い出に浸っている、新しい始まりに希望を感じている}
-Key imagery to include: {含めたい具体的なイメージや比喩。例：星屑、砂時計、褪せた写真}
-The song should have a {構造。例：Intro-Verse1-Chorus-Verse2-Chorus-Bridge-Chorus-Outro} structure.
+Genre: Upbeat Indie Pop
+Mood: Energetic, hopeful, driving
+Tempo: Fast
+Theme: Celebrating friendship and overcoming challenges together
+
+(Verse 1)
+Sunrise paints the sky with gold, another day begins anew.
+We're standing tall, hearts open wide, ready for whatever's true.
+Remember all the nights we fought, the doubts that tried to pull us down?
+But hand in hand, we found our strength, the best damn team in this whole town!
+
+(Chorus)
+Oh-oh-oh, we're on our way, no turning back, we're gonna shine!
+With every step, we break the mold, this future's ours, by our design!
+Yeah-eah-eah, through thick and thin, our spirits rise, we're built to win!
+This is our anthem, loud and clear, let the good times now begin!
+
+(Verse 2)
+The city buzzes, lights ignite, a canvas for our wildest dreams.
+We'll paint our story, bold and bright, bursting at the very seams.
+No mountain high enough to climb, no ocean deep enough to drown.
+Together we can conquer all, the undisputed kings and queens!
+
+(Chorus)
+Oh-oh-oh, we're on our way, no turning back, we're gonna shine!
+With every step, we break the mold, this future's ours, by our design!
+Yeah-eah-eah, through thick and thin, our spirits rise, we're built to win!
+This is our anthem, loud and clear, let the good times now begin!
+
+(Bridge)
+So raise your voices, let them soar, a symphony of hope and might.
+We're writing history, asking for more, bathing in this glorious light!
+
+(Chorus)
+Oh-oh-oh, we're on our way, no turning back, we're gonna shine!
+With every step, we break the mold, this future's ours, by our design!
+Yeah-eah-eah, through thick and thin, our spirits rise, we're built to win!
+This is our anthem, loud and clear, let the good times now begin!
 ```
-**使い方のコツ**：`{}` で囲まれた部分は、あなたのイメージに合わせて自由に書き換えてください。感情、情景、主人公の状況を具体的に設定することで、より感情に訴えかける歌詞が生まれます。
+**使い方のコツ**：`Genre:`, `Mood:`, `Tempo:`, `Theme:` といったタグを使って、生成したい楽曲の要素を具体的に指示します。これにより、より意図した通りのサウンドに近づけることができます。
 
 ---
 
 ### プロンプト3：上級テクニック編
-**タイトル**：【Suno AI】指定ジャンル×特定アーティスト風の歌詞＆構成指示
-**用途**：特定のジャンルやアーティストの雰囲気を模倣し、さらに詳細な曲構成まで指示して、より完成度の高い歌詞を生成します。
+**タイトル**：【Suno AI】物語を紡ぐ！「BGM＋ボーカル」で映像作品に命を吹き込む
+**用途**：特定のシーンや雰囲気に合わせたBGMとボーカルを同時に生成し、映像作品や朗読劇などに活用できる楽曲を作成します。
 **プロンプト本文**：
 ```
-Generate lyrics for a song in the style of {アーティスト名または具体的な曲名。例：Official髭男dismの「Pretender」、YOASOBIの「夜に駆ける”、lo-fi hip hop} with a {ジャンル。例：ポップロック、エレクトロニック、R&B} feel.
-The song should tell a story about {物語のテーマやプロット。例：すれ違う二人の恋愛、夢を諦めきれない若者の葛藤、都会で孤独を感じる日常}
-The lyrics should capture the emotional arc of {感情の変化。例：希望から絶望へ、日常から非日常へ}
-Specific lyrical devices to use: {使用したい表現技法。例：比喩、対比、繰り返しのフレーズ}
-Structure the song as follows:
-Intro: [イントロの雰囲気や内容]
-Verse 1: [1番の歌詞のテーマや展開]
-Pre-Chorus: [プリコーラスで盛り上げる要素]
-Chorus: [サビのキャッチーなフレーズやテーマ]
-Verse 2: [2番の歌詞で深める展開]
-Chorus: [繰り返し]
-Bridge: [ブリッジで変化や転調をつける要素]
-Chorus: [繰り返し]
-Outro: [アウトロの余韻や締めくくり]
+You are a skilled songwriter and composer for film scores. Create a piece that evokes a sense of mystery and wonder, suitable for a scene where a protagonist discovers an ancient, hidden artifact in a forgotten temple.
+
+Part 1: Instrumental BGM
+Style: Orchestral, cinematic, with a touch of ethereal synth.
+Mood: Mysterious, awe-inspiring, slightly tense, building anticipation.
+Instrumentation: Strings, subtle choir, deep percussion, atmospheric pads.
+Dynamics: Starts soft and sparse, gradually builds to a powerful, climatic moment.
+
+Part 2: Vocal Melody
+Lyrics:
+(Whispered)
+Dust motes dance in silent air,
+A secret held, beyond compare.
+The carvings glow with ancient light,
+Unveiling truths within the night.
+
+(Sung, ethereal female voice)
+Oh, the whispers of the ages past,
+A forgotten path, forever cast.
+This sacred place, where shadows creep,
+Promises the world will keep.
+
+(Building intensity)
+The power stirs, a dormant flame,
+Calling out my whispered name.
+What lies within this hallowed ground?
+A destiny unbound!
+
+Instructions for Suno AI:
+Generate an instrumental track first, following the BGM specifications.
+Then, integrate the provided vocal melody and lyrics, ensuring they blend seamlessly with the instrumental, particularly during the build-up. The vocal should feel like an integral part of the discovery and awe.
 ```
-**使い方のコツ**：アーティスト名や曲名を具体的に指定することで、そのアーティスト特有の言葉遣いやリズム感をSuno AIが学習しやすくなります。曲の構成を詳細に指示することで、より意図した通りの楽曲イメージに近づけることができます。
+**使い方のコツ**：AIに役割（"You are a skilled songwriter and composer for film scores."）を与え、BGMとボーカルを明確に分けて指示します。BGMのスタイルやムード、楽器編成、そしてボーカルの歌詞と歌い方を指定することで、より複雑で意図的な楽曲制作が可能になります。特に、映像作品への活用を想定する場合に有効です。
 
 ---
 

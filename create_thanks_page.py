@@ -29,7 +29,7 @@ THANKS_CONTENT = f"""
   <div style="background:linear-gradient(135deg,#3b5bdb,#7048e8);color:white;padding:40px 32px;border-radius:16px;margin-bottom:32px;">
     <p style="font-size:48px;margin:0 0 12px;">🎉</p>
     <h1 style="color:white;font-size:26px;margin:0 0 8px;">購入ありがとうございます！</h1>
-    <p style="opacity:0.9;margin:0;">脳筋でタックルしかできないタックルです。ほんまにありがとう！</p>
+    <p style="opacity:0.9;margin:0;">脳筋タックルです。ほんまにありがとう！</p>
   </div>
 
   <div style="background:#f8f9fa;border-radius:12px;padding:28px;margin-bottom:24px;text-align:left;">
@@ -56,7 +56,7 @@ THANKS_CONTENT = f"""
   <div style="border-top:1px solid #e0e0e0;padding-top:24px;color:#888;font-size:13px;">
     <p>【松】フルサポートセットにご興味の方は<br>
     <a href="https://teqsnap.com" style="color:#3b5bdb;">teqsnap.com</a> のお問い合わせからどうぞ</p>
-    <p style="margin-top:16px;">— 脳筋でタックルしかできないタックル</p>
+    <p style="margin-top:16px;">— 脳筋タックル</p>
   </div>
 
 </div>
