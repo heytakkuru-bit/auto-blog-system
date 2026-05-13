@@ -56,12 +56,39 @@ Stripe Payment Links（竹300円 / 松3,000円）
 | カテゴリ | 生成AI・プロンプト系 / WordPress・ブログ系 / 番外編・趣味ログ |
 | 番外編の割合 | 6記事に1回 |
 
+### 執筆構成（8段階セールスライティング）
+記事はマーケティング心理に基づいた8段階構成を厳守。売れる記事を生成。
+
+1. **冒頭：この記事で得られる未来**（1〜3行）  
+   読者が得られるベネフィットを具体的に提示。
+
+2. **共感：なぜ読者が悩むのかを言語化**  
+   読者の不安や悩みに寄り添う。
+
+3. **結論：最短ルートの提示**  
+   結論を先に提示。力強く解決イメージ。
+
+4. **手順：ステップ形式のチェックリスト**  
+   具体的な手順をステップカードで説明。
+
+5. **実例：具体的な成功事例**  
+   実体験ベースの成功事例。
+
+6. **失敗回避：よくある罠を先に潰す**  
+   初心者が陥りやすいミスを警告。
+
+7. **まとめ：今日やるべき3つのアクション**  
+   今日から実践できる3つの行動。
+
+8. **次の一手：Stripe決済ボタンへの自然な誘導**  
+   記事末で300円プロンプト集へ情熱的に誘導。
+
 ### ビジュアル要素（全記事必須）
 - カラーコールアウトBOX（ポイント/詰む/感動/期待外れ）
 - ステップカード（手順説明）
 - 比較テーブル（他ツール比較）
 - グラデーションまとめBOX
-- AI生成画像（2枚/記事）→ アイキャッチ + 本文挿入
+- AI生成画像（2枚/記事）→ すべてのアイキャッチは固定ゴリラ画像に統一
 
 ---
 
@@ -75,6 +102,7 @@ Stripe Payment Links（竹300円 / 松3,000円）
 | スタイル | Pixar/Disney 風 3D クレイアニメ |
 | ファイル | `assets/gorilla-mascot.png` |
 | 用途 | 全記事のアイキャッチ（OGP）に固定使用 |
+| 固定リンク | `STRIPE_PAYMENT_URL_TAKE=https://buy.stripe.com/aFa6oAaQkgMK3hW4WW7bW00` |
 | 無効化 | `ENABLE_IMAGES=false` |
 
 ---
@@ -114,14 +142,14 @@ WP_USERNAME=
 WP_APP_PASSWORD=
 STRIPE_SECRET_KEY=           # Stripe シークレットキー
 STRIPE_PAYMENT_URL=          # 竹 Payment Link（後方互換用）
-STRIPE_PAYMENT_URL_TAKE=     # 竹（300円）Payment Link
+STRIPE_PAYMENT_URL_TAKE=https://buy.stripe.com/aFa6oAaQkgMK3hW4WW7bW00  # 竹（300円）Payment Link
 STRIPE_PAYMENT_URL_MATSU=    # 松（3,000円）Payment Link
 THANKS_PAGE_URL=https://teqsnap.com/thanks-95bb6f0c3e9c9ad2/
 PRODUCT_PRICE=300
 PRODUCT_PRICE_MATSU=3000
 PRODUCT_PASSWORD=            # WP販売ページのパスワード
 ENABLE_PRODUCT=true
-ENABLE_IMAGES=true
+ENABLE_IMAGES=false
 IMAGE_MAX_PER_ARTICLE=2
 POST_TIMES=08:00,13:00,20:00
 ARTICLE_MIN_CHARS=1500

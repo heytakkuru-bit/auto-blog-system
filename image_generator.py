@@ -17,11 +17,14 @@ IMAGE_TIMEOUT = 60
 
 # キャラクター定義（全プロンプト共通）
 GORILLA_BASE = (
-    "A cute muscular gorilla character with big round sparkling eyes and a warm smile. "
-    "Pixar/Disney 3D clay animation style, soft rounded shapes, vibrant colors. "
-    "Simple clean background. Square composition. "
-    "IMPORTANT: absolutely no text, no letters, no numbers, no characters, "
-    "no symbols, no watermarks, no signs, no writing of any kind anywhere in the image."
+    "MANDATORY MAIN CHARACTER: A lovable cute muscular gorilla mascot. "
+    "Huge round sparkly eyes, big warm friendly smile, chubby cartoon face. "
+    "Pixar/Disney 3D clay animation style, soft rounded shapes, bright vivid colors. "
+    "The gorilla MUST be the central subject filling most of the frame. "
+    "Clean simple background. "
+    "ABSOLUTE RULE - ZERO TEXT: no text, no letters, no words, no numbers, no digits, "
+    "no symbols, no watermarks, no signs, no captions, no labels, no writing of any kind "
+    "anywhere in the entire image. Pure visual imagery only."
 )
 
 
@@ -82,7 +85,11 @@ class ImageGenerator:
                 prompt=prompt,
                 config=types.GenerateImagesConfig(
                     number_of_images=1,
-                    aspect_ratio="16:9",
+                    aspect_ratio="1:1",
+                    negative_prompt=(
+                        "text, letters, words, numbers, digits, watermark, writing, "
+                        "sign, caption, label, human, person, realistic photo"
+                    ),
                     safety_filter_level="BLOCK_LOW_AND_ABOVE",
                     person_generation="DONT_ALLOW",
                 ),
@@ -95,10 +102,10 @@ class ImageGenerator:
     @staticmethod
     def build_prompt(keyword: str, description: str) -> str:
         """記事テーマに合わせたゴリラシーンのプロンプトを生成する。"""
-        # keyword を英語寄りのシーン説明に変換（日本語キーワードがそのまま画像に出ないよう除外）
         return (
             f"{GORILLA_BASE} "
-            f"Scene: the gorilla is enthusiastically and happily doing an activity "
-            f"related to the topic: {description} "
-            "Fun tech-savvy pose. No Japanese, no Chinese, no Korean, no text of any kind."
+            f"Scene: the gorilla mascot character is joyfully and energetically "
+            f"acting out this activity: {description}. "
+            "The gorilla is always the hero of the scene, front and center. "
+            "Absolutely no text, no letters, no numbers, no writing of any kind."
         )
