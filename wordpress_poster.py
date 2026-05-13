@@ -2,6 +2,7 @@ from __future__ import annotations
 import os
 import base64
 import logging
+from pathlib import Path
 from typing import Optional, List
 import requests
 
@@ -27,6 +28,7 @@ class WordPressPoster:
             "Content-Type": "application/json",
         }
         self.api_base = self._detect_api_base()
+        self._static_featured_id = None
 
     def _detect_api_base(self) -> str:
         """REST APIのベースURLを判定する。pretty permalink を優先し、最大2回試みる。"""
@@ -44,6 +46,41 @@ class WordPressPoster:
 
         logger.info(f"API base (fallback): {fallback}")
         return fallback
+
+    def get_static_featured_media_id(self) -> Optional[int]:
+        if self._static_featured_id:
+            return self._static_featured_id
+
+        try:
+            resp = requests.get(
+                self._api_url("/media"),
+                params={"search": "gorilla-mascot", "per_page": 5},
+                headers=self.headers,
+                timeout=10,
+            )
+            if resp.ok:
+                for item in resp.json():
+                    source_url = item.get("source_url", "")
+                    title = item.get("title", {}).get("rendered", "").lower()
+                    if source_url.endswith("gorilla-mascot.png") or "gorilla" in title:
+                        self._static_featured_id = item.get("id")
+                        return self._static_featured_id
+        except Exception as e:
+            logger.warning(f"Static featured lookup failed: {e}")
+
+        local_path = Path(__file__).parent / "assets" / "gorilla-mascot.png"
+        if local_path.exists():
+            try:
+                with open(local_path, "rb") as f:
+                    image_bytes = f.read()
+                media_id, _ = self.upload_media(image_bytes, local_path.name)
+                self._static_featured_id = media_id
+                return self._static_featured_id
+            except Exception as e:
+                logger.error(f"Static featured upload failed: {e}")
+        else:
+            logger.error(f"Static gorilla image missing: {local_path}")
+        return None
 
     def _api_url(self, path: str) -> str:
         """エンドポイントURLを組み立てる。fallback形式に対応。"""
@@ -92,6 +129,10 @@ class WordPressPoster:
             payload["tags"] = tag_ids
         if article.get("featured_media_id"):
             payload["featured_media"] = article["featured_media_id"]
+        else:
+            static_id = self.get_static_featured_media_id()
+            if static_id:
+                payload["featured_media"] = static_id
 
         logger.info(f"Posting: '{article['title']}'")
         response = requests.post(
@@ -156,6 +197,10 @@ class WordPressPoster:
         }
         if article.get("featured_media_id"):
             payload["featured_media"] = article["featured_media_id"]
+        else:
+            static_id = self.get_static_featured_media_id()
+            if static_id:
+                payload["featured_media"] = static_id
 
         logger.info(f"Updating post id={wp_id}: '{article['title']}'")
         response = requests.post(

@@ -99,13 +99,47 @@ class ImageGenerator:
             return response.generated_images[0].image.image_bytes
         return None
 
-    @staticmethod
-    def build_prompt(keyword: str, description: str) -> str:
+    def generate_dynamic_situation(self, title: str, excerpt: str) -> str:
+        """記事のタイトルと本文要約からゴリラのシチュエーションを動的に生成"""
+        try:
+            prompt_for_situation = f"""
+You are a creative director for a gorilla mascot character.
+Based on this article's title and content, describe a single, specific scene where the gorilla is acting out something related to the article's topic.
+The description should be vivid, fun, and energetic. Include the gorilla's pose or action clearly.
+
+Article Title: {title}
+Content Summary: {excerpt}
+
+Generate a 1-sentence description of what the gorilla is doing in the scene. Make it specific and action-oriented.
+Example: "The gorilla is enthusiastically typing code on a laptop, eyes focused on the screen, one fist raised in triumph"
+Example: "The gorilla is holding a smartphone up to its ear, grinning widely while gesturing excitedly"
+Example: "The gorilla is wearing headphones and dancing joyfully while musical notes float around"
+
+Output ONLY the 1-sentence scene description, nothing else.
+"""
+            response = self.client.models.generate_content(
+                model="gemini-2.5-flash-lite",
+                contents=prompt_for_situation,
+                config=types.GenerateContentConfig(max_output_tokens=100),
+            )
+            situation = response.text.strip() if response else ""
+            return situation if situation else "celebrating with joy and energy"
+        except Exception as e:
+            logger.warning(f"[IMAGE] Dynamic situation generation failed: {e}")
+            return "celebrating with joy and energy"
+
+    def build_prompt(self, keyword: str, description: str, title: str = "", excerpt: str = "") -> str:
         """記事テーマに合わせたゴリラシーンのプロンプトを生成する。"""
+        # タイトルと本文がある場合は動的シチュエーションを生成
+        if title and excerpt:
+            situation = self.generate_dynamic_situation(title, excerpt)
+        else:
+            situation = description
+        
         return (
             f"{GORILLA_BASE} "
-            f"Scene: the gorilla mascot character is joyfully and energetically "
-            f"acting out this activity: {description}. "
+            f"Scene: the gorilla mascot character is {situation}. "
             "The gorilla is always the hero of the scene, front and center. "
-            "Absolutely no text, no letters, no numbers, no writing of any kind."
+            "CRITICAL: Absolutely no text, no letters, no numbers, no writing, no watermarks anywhere. "
+            "Pure visual imagery only."
         )

@@ -104,11 +104,13 @@ def _attach_images(article: dict, keyword: str, poster: WordPressPoster) -> dict
     最初の画像をアイキャッチとして設定する。
     失敗しても記事投稿は止めない。
     """
-    if os.getenv("ENABLE_IMAGES", "true").lower() != "true":
+    pattern = re.compile(r'<!-- IMAGE:(\w+):([^>]+?) -->')
+    if os.getenv("ENABLE_IMAGES", "false").lower() != "true":
+        article = dict(article)
+        article["content"] = pattern.sub("", article["content"])
         return article
 
     max_images = int(os.getenv("IMAGE_MAX_PER_ARTICLE", "2"))
-    pattern = re.compile(r'<!-- IMAGE:(\w+):([^>]+?) -->')
     markers = pattern.findall(article["content"])
     if not markers:
         return article

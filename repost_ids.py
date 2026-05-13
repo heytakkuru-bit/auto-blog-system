@@ -15,13 +15,15 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(na
 logger = logging.getLogger(__name__)
 
 IMAGE_MAX = int(os.getenv("IMAGE_MAX_PER_ARTICLE", "2"))
-ENABLE_IMAGES = os.getenv("ENABLE_IMAGES", "true").lower() == "true"
+ENABLE_IMAGES = os.getenv("ENABLE_IMAGES", "false").lower() == "true"
 
 
 def attach_images(article, keyword, poster):
-    if not ENABLE_IMAGES:
-        return article
     pattern = re.compile(r'<!-- IMAGE:(\w+):([^>]+?) -->')
+    if not ENABLE_IMAGES:
+        article = dict(article)
+        article["content"] = pattern.sub("", article["content"])
+        return article
     if not pattern.search(article["content"]):
         return article
     try:

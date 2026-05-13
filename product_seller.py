@@ -19,6 +19,8 @@ load_dotenv(Path(__file__).parent / ".env")
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_STRIPE_PAYMENT_URL_TAKE = "https://buy.stripe.com/aFa6oAaQkgMK3hW4WW7bW00"
+
 
 class ProductSeller:
     def __init__(self):
@@ -43,7 +45,8 @@ class ProductSeller:
         self.thanks_url  = os.getenv("THANKS_PAGE_URL", "")
         # 竹: STRIPE_PAYMENT_URL_TAKE → STRIPE_PAYMENT_URL の順で参照
         self.stripe_url_take  = (os.getenv("STRIPE_PAYMENT_URL_TAKE")
-                                 or os.getenv("STRIPE_PAYMENT_URL", ""))
+                                 or os.getenv("STRIPE_PAYMENT_URL", "")
+                                 or DEFAULT_STRIPE_PAYMENT_URL_TAKE)
         self.stripe_url_matsu = os.getenv("STRIPE_PAYMENT_URL_MATSU", "")
         # 後方互換
         self.stripe_url = self.stripe_url_take
@@ -128,7 +131,7 @@ class ProductSeller:
             f"{product['description']}"
             f"<hr>"
             f"<h3>購入・ダウンロード方法</h3>"
-            f'<div style="background:#f0f4ff;border-left:4px solid #3b5bdb;padding:16px;margin:16px 0;border-radius:4px;">'
+            f'<div style="background:#fdd5bd;border-left:4px solid #cc6600;padding:16px;margin:16px 0;border-radius:30px;">'
             f"<p><strong>このページはパスワード保護されています。</strong><br>"
             f"① 下の「Stripeで購入する」ボタンからお支払い（{self.price_take}円）<br>"
             f"② 決済完了後、パスワードが表示されます<br>"
@@ -136,9 +139,10 @@ class ProductSeller:
             f"</div>"
             f'<p style="text-align:center;">'
             f'<a href="{self.stripe_url}" target="_blank" rel="noopener" '
-            f'style="display:inline-block;background:#635bff;color:white;'
-            f'padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:16px;">'
-            f"Stripeで購入する（{self.price_take}円）</a></p>"
+            f'style="display:inline-flex;align-items:center;justify-content:center;gap:10px;'
+            f'background:#ffcd3c;color:#1f1f1f;'
+            f'padding:14px 32px;border-radius:999px;text-decoration:none;font-weight:bold;font-size:16px;box-shadow:0 12px 28px rgba(0,0,0,0.18);">'
+            f'🦍 300円で完全版プロンプトを購入する</a></p>'
             f"<h3>ダウンロード</h3>"
             f'<p><a href="{download_url}" download '
             f'style="display:inline-block;background:#3b5bdb;color:white;'
@@ -179,9 +183,10 @@ class ProductSeller:
             f'<p style="font-size:12px;margin:0 0 18px;opacity:0.85;">'
             f'実戦プロンプト3選 ✅ 2026年動作確認済み ✅ コピペで即使える</p>'
             f'<a href="{take_url}" target="_blank" rel="noopener" '
-            f'style="display:inline-block;background:white;color:#3b5bdb;'
-            f'padding:13px 32px;border-radius:8px;font-weight:bold;text-decoration:none;font-size:16px;">'
-            f'【竹】今すぐ購入（{self.price_take}円）</a>'
+            f'style="display:inline-flex;align-items:center;justify-content:center;gap:10px;'
+            f'background:#ffcd3c;color:#1f1f1f;'
+            f'padding:13px 32px;border-radius:999px;font-weight:bold;text-decoration:none;font-size:16px;box-shadow:0 12px 28px rgba(0,0,0,0.18);">'
+            f'🦍 300円で完全版プロンプトを購入する</a>'
             f'<p style="margin:8px 0 0;font-size:11px;opacity:0.6;">'
             f'クレジットカード決済 / 購入直後にダウンロード可能</p>'
             f'{matsu_block}'
